@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>.a和so的简介 (3. Linux GNU) | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下是如何使用 CMake 来生成静态库（.a 文件）和动态库（.so 文件）的详细教程，结合如何在其他项目中使用这些库。 1. 创建静态库和动态库首先，创建一个包含库代码的项目。假设库代码位于 MyLibrary 目录下，源代码文件为 mylib.cpp，头文件为 mylib.h。 1.1. 目录结构123456&#x2F;MyLibrary  &#x2F;src    mylib.cpp    mylib.h">
+<meta property="og:type" content="article">
+<meta property="og:title" content=".a和so的简介 (3. Linux GNU)">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="以下是如何使用 CMake 来生成静态库（.a 文件）和动态库（.so 文件）的详细教程，结合如何在其他项目中使用这些库。 1. 创建静态库和动态库首先，创建一个包含库代码的项目。假设库代码位于 MyLibrary 目录下，源代码文件为 mylib.cpp，头文件为 mylib.h。 1.1. 目录结构123456&#x2F;MyLibrary  &#x2F;src    mylib.cpp    mylib.h">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-02-09T12:11:41.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.134Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="C&#x2F;C++基础">
+<meta property="article:tag" content="动态链接库">
+<meta property="article:tag" content="静态链接库">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-a和so的简介-3-Linux-GNU" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/" class="article-date">
+  <time class="dt-published" datetime="2025-02-09T12:11:41.000Z" itemprop="datePublished">2025-02-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      .a和so的简介 (3. Linux GNU)
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是如何使用 CMake 来生成静态库（<code>.a</code> 文件）和动态库（<code>.so</code> 文件）的详细教程，结合如何在其他项目中使用这些库。</p>
+<h3 id="1-创建静态库和动态库"><a href="#1-创建静态库和动态库" class="headerlink" title="1. 创建静态库和动态库"></a>1. 创建静态库和动态库</h3><p>首先，创建一个包含库代码的项目。假设库代码位于 <code>MyLibrary</code> 目录下，源代码文件为 <code>mylib.cpp</code>，头文件为 <code>mylib.h</code>。</p>
+<h4 id="1-1-目录结构"><a href="#1-1-目录结构" class="headerlink" title="1.1. 目录结构"></a>1.1. 目录结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/MyLibrary</span><br><span class="line">  /src</span><br><span class="line">    mylib.cpp</span><br><span class="line">    mylib.h</span><br><span class="line">  CMakeLists.txt</span><br><span class="line">  /build</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-库的源代码-mylib-cpp"><a href="#1-2-库的源代码-mylib-cpp" class="headerlink" title="1.2. 库的源代码 mylib.cpp"></a>1.2. 库的源代码 <code>mylib.cpp</code></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mylib.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;mylib.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello from MyLibrary!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-库的头文件-mylib-h"><a href="#1-3-库的头文件-mylib-h" class="headerlink" title="1.3. 库的头文件 mylib.h"></a>1.3. 库的头文件 <code>mylib.h</code></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mylib.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> MYLIB_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MYLIB_H</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// MYLIB_H</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-CMakeLists-txt-文件"><a href="#1-4-CMakeLists-txt-文件" class="headerlink" title="1.4. CMakeLists.txt 文件"></a>1.4. <code>CMakeLists.txt</code> 文件</h4><p>在 <code>MyLibrary</code> 根目录下创建 <code>CMakeLists.txt</code> 文件：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 CMake 最低版本和项目名称</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(MyLibrary)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选项：用户可以选择构建静态库或动态库</span></span><br><span class="line"><span class="keyword">option</span>(BUILD_STATIC_LIBS <span class="string">&quot;Build static libraries&quot;</span> <span class="keyword">OFF</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置输出目录</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_RUNTIME_OUTPUT_DIRECTORY <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>/bin)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_LIBRARY_OUTPUT_DIRECTORY <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>/lib)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据选项决定是生成静态库还是动态库</span></span><br><span class="line"><span class="keyword">if</span>(BUILD_STATIC_LIBS)</span><br><span class="line">    <span class="keyword">add_library</span>(mylib STATIC src/mylib.cpp)</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">    <span class="keyword">add_library</span>(mylib SHARED src/mylib.cpp)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含头文件目录</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(mylib PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-生成库"><a href="#1-5-生成库" class="headerlink" title="1.5. 生成库"></a>1.5. 生成库</h4><p>在命令行中运行以下命令来生成静态库或动态库：</p>
+<ol>
+<li><strong>生成动态库</strong>（默认）：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">cmake --build .</span><br></pre></td></tr></table></figure>
+
+<p>CMake 会在 <code>build/lib/</code> 目录下生成 <code>libmylib.so</code> 文件。</p>
+<ol start="2">
+<li><strong>生成静态库</strong>：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake -DBUILD_STATIC_LIBS=ON ..</span><br><span class="line">cmake --build .</span><br></pre></td></tr></table></figure>
+
+<p>CMake 会在 <code>build/lib/</code> 目录下生成 <code>libmylib.a</code> 文件。</p>
+<h3 id="2-在另一个项目中使用库"><a href="#2-在另一个项目中使用库" class="headerlink" title="2. 在另一个项目中使用库"></a>2. 在另一个项目中使用库</h3><p>假设已经生成了 <code>libmylib.a</code>（静态库）或 <code>libmylib.so</code>（动态库），现在创建一个新的项目来使用这个库。</p>
+<h4 id="2-1-目录结构"><a href="#2-1-目录结构" class="headerlink" title="2.1. 目录结构"></a>2.1. 目录结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/ClientProject</span><br><span class="line">  /src</span><br><span class="line">    main.cpp</span><br><span class="line">  CMakeLists.txt</span><br><span class="line">  /build</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-main-cpp-文件"><a href="#2-2-main-cpp-文件" class="headerlink" title="2.2. main.cpp 文件"></a>2.2. <code>main.cpp</code> 文件</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;mylib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">hello</span>();  <span class="comment">// 调用 MyLibrary 中的函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-CMakeLists-txt-文件"><a href="#2-3-CMakeLists-txt-文件" class="headerlink" title="2.3. CMakeLists.txt 文件"></a>2.3. <code>CMakeLists.txt</code> 文件</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 CMake 最低版本和项目名称</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(ClientProject)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(clientApp src/main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接 MyLibrary 静态库或动态库</span></span><br><span class="line"><span class="comment"># 假设 MyLibrary 的生成库位于 ../MyLibrary/build/lib</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(clientApp PRIVATE <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/../MyLibrary/build/lib/libmylib.a) <span class="comment"># 静态库链接</span></span><br><span class="line"><span class="comment"># target_link_libraries(clientApp PRIVATE $&#123;CMAKE_SOURCE_DIR&#125;/../MyLibrary/build/lib/libmylib.so) # 动态库链接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含 MyLibrary 的头文件</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(clientApp PRIVATE <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/../MyLibrary/src)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-生成并运行"><a href="#2-4-生成并运行" class="headerlink" title="2.4. 生成并运行"></a>2.4. 生成并运行</h4><p>进入 <code>ClientProject/build</code> 目录，运行以下命令生成并运行可执行文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">cmake --build .</span><br></pre></td></tr></table></figure>
+
+<p>如果使用静态库，生成的可执行文件可以直接运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./clientApp</span><br></pre></td></tr></table></figure>
+
+<p>如果使用动态库，需要确保 <code>.so</code> 文件在运行时能被找到。可以将动态库拷贝到可执行文件目录，或者设置 <code>LD_LIBRARY_PATH</code> 环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/path/to/your/lib:<span class="variable">$LD_LIBRARY_PATH</span></span><br><span class="line">./clientApp</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-CMake-管理-a-和-so-的自动选择"><a href="#3-CMake-管理-a-和-so-的自动选择" class="headerlink" title="3. CMake 管理 .a 和 .so 的自动选择"></a>3. CMake 管理 <code>.a</code> 和 <code>.so</code> 的自动选择</h3><p>还可以使用 CMake 的 <code>find_library()</code> 函数，自动选择静态库或动态库：</p>
+<h4 id="修改-ClientProject-的-CMakeLists-txt"><a href="#修改-ClientProject-的-CMakeLists-txt" class="headerlink" title="修改 ClientProject 的 CMakeLists.txt"></a>修改 <code>ClientProject</code> 的 <code>CMakeLists.txt</code></h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置 CMake 最低版本和项目名称</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(ClientProject)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找 MyLibrary 库，自动选择静态库或动态库</span></span><br><span class="line"><span class="keyword">find_library</span>(MYLIBRARY_LIB NAMES mylib PATHS <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/../MyLibrary/build/lib)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(clientApp src/main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接找到的库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(clientApp PRIVATE <span class="variable">$&#123;MYLIBRARY_LIB&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含 MyLibrary 的头文件</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(clientApp PRIVATE <span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/../MyLibrary/src)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h3><ol>
+<li><strong>静态库 <code>.a</code></strong> 在编译时链接到可执行文件，生成的可执行文件无需在运行时依赖库文件。</li>
+<li><strong>动态库 <code>.so</code></strong> 在运行时动态加载，减小了可执行文件的体积，但需要确保库文件在运行时可用。</li>
+<li>使用 CMake 生成静态库或动态库时，可以通过选项动态选择，方便管理。</li>
+<li>在其他项目中链接库时，可以使用 <code>target_link_libraries()</code> 来链接静态或动态库，并通过 <code>find_library()</code> 来自动查找库文件。</li>
+</ol>
+<p>通过以上配置，可以在 CMake 项目中灵活使用静态库和动态库。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/" data-id="cmbc76opa001tkmq4fl2u8jik" data-title=".a和so的简介 (3. Linux GNU)" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          MSVC与MinGW
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">DLL.a和DLL的简介 (2. Windows MINGW)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

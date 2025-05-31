@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++ Primer 5th 5 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第五章 语句简单语句 表达式语句：一个表达式末尾加上分号，就变成了表达式语句。 空语句：只有一个单独的分号。 复合语句（块）：用花括号 &#123;&#125;包裹起来的语句和声明的序列。一个块就是一个作用域。  条件语句 悬垂else（dangling else）：用来描述在嵌套的if else语句中，如果if比else多时如何处理的问题。C++使用的方法是else匹配最近没有配对的if。  迭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer 5th 5">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-5/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="第五章 语句简单语句 表达式语句：一个表达式末尾加上分号，就变成了表达式语句。 空语句：只有一个单独的分号。 复合语句（块）：用花括号 &#123;&#125;包裹起来的语句和声明的序列。一个块就是一个作用域。  条件语句 悬垂else（dangling else）：用来描述在嵌套的if else语句中，如果if比else多时如何处理的问题。C++使用的方法是else匹配最近没有配对的if。  迭">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-02-02T14:00:14.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.132Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Primer-5th-5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-5/" class="article-date">
+  <time class="dt-published" datetime="2025-02-02T14:00:14.000Z" itemprop="datePublished">2025-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++ Primer 5th 5
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第五章-语句"><a href="#第五章-语句" class="headerlink" title="第五章 语句"></a>第五章 语句</h1><h2 id="简单语句"><a href="#简单语句" class="headerlink" title="简单语句"></a>简单语句</h2><ul>
+<li><strong>表达式语句</strong>：一个表达式末尾加上分号，就变成了表达式语句。</li>
+<li><strong>空语句</strong>：只有一个单独的分号。</li>
+<li><strong>复合语句（块）</strong>：用花括号 <code>&#123;&#125;</code>包裹起来的语句和声明的序列。一个块就是一个作用域。</li>
+</ul>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><ul>
+<li><strong>悬垂else</strong>（dangling else）：用来描述在嵌套的<code>if else</code>语句中，如果<code>if</code>比<code>else</code>多时如何处理的问题。C++使用的方法是<code>else</code>匹配最近没有配对的<code>if</code>。</li>
+</ul>
+<h2 id="迭代语句"><a href="#迭代语句" class="headerlink" title="迭代语句"></a>迭代语句</h2><ul>
+<li><strong>while</strong>：当不确定到底要迭代多少次时，使用 <code>while</code>循环比较合适，比如读取输入的内容。</li>
+<li><strong>for</strong>： <code>for</code>语句可以省略掉 <code>init-statement</code>， <code>condition</code>和 <code>expression</code>的任何一个；<strong>甚至全部</strong>。</li>
+<li><strong>范围for</strong>： <code>for (declaration: expression) statement</code></li>
+</ul>
+<h2 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h2><ul>
+<li><strong>break</strong>：<code>break</code>语句负责终止离它最近的<code>while</code>、<code>do while</code>、<code>for</code>或者<code>switch</code>语句，并从这些语句之后的第一条语句开始继续执行。</li>
+<li><strong>continue</strong>：终止最近的循环中的当前迭代并立即开始下一次迭代。只能在<code>while</code>、<code>do while</code>、<code>for</code>循环的内部。</li>
+</ul>
+<h2 id="try语句块和异常处理"><a href="#try语句块和异常处理" class="headerlink" title="try语句块和异常处理"></a>try语句块和异常处理</h2><ul>
+<li><strong>throw表达式</strong>：异常检测部分使用 <code>throw</code>表达式来表示它遇到了无法处理的问题。我们说 <code>throw</code>引发 <code>raise</code>了异常。</li>
+<li><strong>try语句块</strong>：以 <code>try</code>关键词开始，以一个或多个 <code>catch</code>字句结束。 <code>try</code>语句块中的代码抛出的异常通常会被某个 <code>catch</code>捕获并处理。 <code>catch</code>子句也被称为<strong>异常处理代码</strong>。</li>
+<li><strong>异常类</strong>：用于在 <code>throw</code>表达式和相关的 <code>catch</code>子句之间传递异常的具体信息。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-5/" data-id="cmbc76op50013kmq42o8j4mrk" data-title="C++ Primer 5th 5" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          C++ Primer 5th 6
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">C++ Primer 5th 4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

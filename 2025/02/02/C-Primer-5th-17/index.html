@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++ Primer 5th 17 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第十七章 标准库特殊设施tuple类型 tuple是类似pair的模板，每个成员类型都可以不同，但tuple可以有任意数量的成员。 但每个确定的tuple类型的成员数目是固定的。 我们可以将tuple看做一个“快速而随意”的数据结构。  tuple支持的操作：    操作 解释    tuple&lt;T1, T2, ..., Tn&gt; t; t是一个tuple，成员数为n，第i个成员的类型是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer 5th 17">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-17/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="第十七章 标准库特殊设施tuple类型 tuple是类似pair的模板，每个成员类型都可以不同，但tuple可以有任意数量的成员。 但每个确定的tuple类型的成员数目是固定的。 我们可以将tuple看做一个“快速而随意”的数据结构。  tuple支持的操作：    操作 解释    tuple&lt;T1, T2, ..., Tn&gt; t; t是一个tuple，成员数为n，第i个成员的类型是">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-02-02T14:04:06.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.132Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Primer-5th-17" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-17/" class="article-date">
+  <time class="dt-published" datetime="2025-02-02T14:04:06.000Z" itemprop="datePublished">2025-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++ Primer 5th 17
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第十七章-标准库特殊设施"><a href="#第十七章-标准库特殊设施" class="headerlink" title="第十七章 标准库特殊设施"></a>第十七章 标准库特殊设施</h1><h2 id="tuple类型"><a href="#tuple类型" class="headerlink" title="tuple类型"></a>tuple类型</h2><ul>
+<li><code>tuple</code>是类似<code>pair</code>的模板，每个成员类型都可以不同，但<code>tuple</code>可以有任意数量的成员。</li>
+<li>但每个确定的<code>tuple</code>类型的成员数目是固定的。</li>
+<li>我们可以将<code>tuple</code>看做一个“快速而随意”的数据结构。</li>
+</ul>
+<p><strong>tuple支持的操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tuple&lt;T1, T2, ..., Tn&gt; t;</code></td>
+<td><code>t</code>是一个<code>tuple</code>，成员数为<code>n</code>，第<code>i</code>个成员的类型是<code>Ti</code>所有成员都进行值初始化。</td>
+</tr>
+<tr>
+<td><code>tuple&lt;T1, T2, ..., Tn&gt; t(v1, v2, ..., vn);</code></td>
+<td>每个成员用对应的初始值<code>vi</code>进行初始化。此构造函数是<code>explicit</code>的。</td>
+</tr>
+<tr>
+<td><code>make_tuple(v1, v2, ..., vn)</code></td>
+<td>返回一个用给定初始值初始化的<code>tuple</code>。<code>tuple</code>的类型从初始值的类型<strong>推断</strong>。</td>
+</tr>
+<tr>
+<td><code>t1 == t2</code></td>
+<td>当两个<code>tuple</code>具有相同数量的成员且成员对应相等时，两个<code>tuple</code>相等。</td>
+</tr>
+<tr>
+<td><code>t1 relop t2</code></td>
+<td><code>tuple</code>的关系运算使用<strong>字典序</strong>。两个<code>tuple</code>必须具有相同数量的成员。</td>
+</tr>
+<tr>
+<td><code>get&lt;i&gt;(t)</code></td>
+<td>返回<code>t</code>的第<code>i</code>个数据成员的引用：如果<code>t</code>是一个左值，结果是一个左值引用；否则，结果是一个右值引用。<code>tuple</code>的所有成员都是<code>public</code>的。</td>
+</tr>
+<tr>
+<td><code>tuple_size&lt;tupleType&gt;::value</code></td>
+<td>一个类模板，可以通过一个<code>tuple</code>类型来初始化。它有一个名为<code>value</code>的<code>public constexpr static</code>数据成员，类型为<code>size_t</code>，表示给定<code>tuple</code>类型中成员的数量。</td>
+</tr>
+<tr>
+<td><code>tuple_element&lt;i, tupleType&gt;::type</code></td>
+<td>一个类模板，可以通过一个整型常量和一个<code>tuple</code>类型来初始化。它有一个名为<code>type</code>的<code>public</code>成员，表示给定<code>tuple</code>类型中指定成员的类型。</td>
+</tr>
+</tbody></table>
+<h3 id="定义和初始化tuple"><a href="#定义和初始化tuple" class="headerlink" title="定义和初始化tuple"></a>定义和初始化tuple</h3><p>定义和初始化示例：</p>
+<ul>
+<li><code>tuple&lt;size_t, size_t, size_t&gt; threeD;</code></li>
+<li><code>tuple&lt;size_t, size_t, size_t&gt; threeD&#123;1,2,3&#125;;</code></li>
+<li><code>auto item = make_tuple(&quot;0-999-78345-X&quot;, 3, 2.00)；</code></li>
+</ul>
+<p>访问tuple成员：</p>
+<ul>
+<li><code>auto book = get&lt;0&gt;(item);</code></li>
+<li><code>get&lt;2&gt;(item) *= 0.8;</code></li>
+</ul>
+<h3 id="使用tuple返回多个值"><a href="#使用tuple返回多个值" class="headerlink" title="使用tuple返回多个值"></a>使用tuple返回多个值</h3><ul>
+<li><code>tuple</code>最常见的用途是从一个函数返回多个值。</li>
+</ul>
+<h2 id="bitset类型"><a href="#bitset类型" class="headerlink" title="bitset类型"></a>bitset类型</h2><ul>
+<li>处理二进制位的有序集；</li>
+<li><code>bitset</code>也是类模板，但尖括号中输入的是<code>bitset</code>的长度而不是元素类型，因为元素类型是固定的，都是一个二进制位。</li>
+</ul>
+<p>初始化<code>bitset</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bitset&lt;n&gt; b;</code></td>
+<td><code>b</code>有<code>n</code>位；每一位均是0.此构造函数是一个<code>constexpr</code>。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(u);</code></td>
+<td><code>b</code>是<code>unsigned long long</code>值<code>u</code>的低<code>n</code>位的拷贝。如果<code>n</code>大于<code>unsigned long long</code>的大小，则<code>b</code>中超出<code>unsigned long long</code>的高位被置为0。此构造函数是一个<code>constexpr</code>。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(s, pos, m, zero, one);</code></td>
+<td><code>b</code>是<code>string s</code>从位置<code>pos</code>开始<code>m</code>个字符的拷贝。<code>s</code>只能包含字符<code>zero</code>或<code>one</code>：如果<code>s</code>包含任何其他字符，构造函数会抛出<code>invalid_argument</code>异常。字符在<code>b</code>中分别保存为<code>zero</code>和<code>one</code>。<code>pos</code>默认为0，<code>m</code>默认为<code>string::npos</code>，<code>zero</code>默认为’0’，<code>one</code>默认为’1’。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(cp, pos, m, zero, one);</code></td>
+<td>和上一个构造函数相同，但从<code>cp</code>指向的字符数组中拷贝字符。如果未提供<code>m</code>，则<code>cp</code>必须指向一个<code>C</code>风格字符串。如果提供了<code>m</code>，则从<code>cp</code>开始必须至少有<code>m</code>个<code>zero</code>或<code>one</code>字符。</td>
+</tr>
+</tbody></table>
+<p>初始化案例；</p>
+<ul>
+<li><code>bitset&lt;13&gt; bitvec1(0xbeef);</code></li>
+<li><code>bitset&lt;32&gt; bitvec4(&quot;1100&quot;);</code></li>
+</ul>
+<p><code>bitset</code>操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>b.any()</code></td>
+<td><code>b</code>中是否存在1。</td>
+</tr>
+<tr>
+<td><code>b.all()</code></td>
+<td><code>b</code>中都是1。</td>
+</tr>
+<tr>
+<td><code>b.none()</code></td>
+<td><code>b</code>中是否没有1。</td>
+</tr>
+<tr>
+<td><code>b.count()</code></td>
+<td><code>b</code>中1的个数。</td>
+</tr>
+<tr>
+<td><code>b.size()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>b.test(pos)</code></td>
+<td><code>pos</code>下标是否是1</td>
+</tr>
+<tr>
+<td><code>b.set(pos)</code></td>
+<td><code>pos</code>置1</td>
+</tr>
+<tr>
+<td><code>b.set()</code></td>
+<td>所有都置1</td>
+</tr>
+<tr>
+<td><code>b.reset(pos)</code></td>
+<td>将位置<code>pos</code>处的位复位</td>
+</tr>
+<tr>
+<td><code>b.reset()</code></td>
+<td>将<code>b</code>中所有位复位</td>
+</tr>
+<tr>
+<td><code>b.flip(pos)</code></td>
+<td>将位置<code>pos</code>处的位取反</td>
+</tr>
+<tr>
+<td><code>b.flip()</code></td>
+<td>将<code>b</code>中所有位取反</td>
+</tr>
+<tr>
+<td><code>b[pos]</code></td>
+<td>访问<code>b</code>中位置<code>pos</code>处的位；如果<code>b</code>是<code>const</code>的，则当该位置位时，返回<code>true</code>；否则返回<code>false</code>。</td>
+</tr>
+<tr>
+<td><code>b.to_ulong()</code></td>
+<td>返回一个<code>unsigned long</code>值，其位模式和<code>b</code>相同。如果<code>b</code>中位模式不能放入指定的结果类型，则抛出一个<code>overflow_error</code>异常。</td>
+</tr>
+<tr>
+<td><code>b.to_ullong()</code></td>
+<td>类似上面，返回一个<code>unsigned long long</code>值。</td>
+</tr>
+<tr>
+<td><code>b.to_string(zero, one)</code></td>
+<td>返回一个<code>string</code>，表示<code>b</code>中位模式。<code>zero</code>和<code>one</code>默认为0和1。</td>
+</tr>
+<tr>
+<td><code>os &lt;&lt; b</code></td>
+<td>将<code>b</code>中二进制位打印为字符<code>1</code>或<code>0</code>，打印到流<code>os</code>。</td>
+</tr>
+<tr>
+<td><code>is &gt;&gt; b</code></td>
+<td>从<code>is</code>读取字符存入<code>b</code>。当下一个字符不是1或0时，或是已经读入<code>b.size()</code>个位时，读取过程停止。</td>
+</tr>
+</tbody></table>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><ul>
+<li>正则表达式（reqular expression）是一种描述字符序列的方法，是一种很强大的工具。</li>
+</ul>
+<p>正则表达式库组件：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>regex</code></td>
+<td>表示一个正则表达式的类</td>
+</tr>
+<tr>
+<td><code>regex_match</code></td>
+<td>将一个字符序列与一个正则表达式匹配</td>
+</tr>
+<tr>
+<td><code>regex_search</code></td>
+<td>寻找第一个与正则表达式匹配的子序列</td>
+</tr>
+<tr>
+<td><code>regex_replace</code></td>
+<td>使用给定格式替换一个正则表达式</td>
+</tr>
+<tr>
+<td><code>sregex_iterator</code></td>
+<td>迭代器适配器，调用<code>regex_searcg</code>来遍历一个<code>string</code>中所有匹配的子串</td>
+</tr>
+<tr>
+<td><code>smatch</code></td>
+<td>容器类，保存在<code>string</code>中搜索的结果</td>
+</tr>
+<tr>
+<td><code>ssub_match</code></td>
+<td><code>string</code>中匹配的子表达式的结果</td>
+</tr>
+</tbody></table>
+<p><code>regex_match</code>和<code>regex_search</code>的参数：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>(seq, m, r, mft)</code></td>
+<td>在字符序列<code>seq</code>中查找<code>regex</code>对象<code>r</code>中的正则表达式。<code>seq</code>可以是一个<code>string</code>、标识范围的一对迭代器、一个指向空字符结尾的字符数组的指针。</td>
+</tr>
+<tr>
+<td><code>(seq, r, mft)</code></td>
+<td><code>m</code>是一个<code>match</code>对象，用来保存匹配结果的相关细节。<code>m</code>和<code>seq</code>必须具有兼容的类型。<code>mft</code>是一个可选的<code>regex_constants::match_flag_type</code>值。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>这些操作会返回<code>bool</code>值，指出是否找到匹配。</li>
+</ul>
+<h3 id="使用正则表达式库"><a href="#使用正则表达式库" class="headerlink" title="使用正则表达式库"></a>使用正则表达式库</h3><ul>
+<li><code>regex</code>使用的正则表达式语言是<code>ECMAScript</code>，模式<code>[[::alpha::]]</code>匹配任意字母。</li>
+<li>由于反斜线是C++中的特殊字符，在模式中每次出现<code>\</code>的地方，必须用一个额外的反斜线<code>\\</code>告知C++我们需要一个反斜线字符。</li>
+<li>简单案例：<ul>
+<li><code>string pattern(&quot;[^c]ei&quot;); pattern = &quot;[[:alpha:]]*&quot; + pattern + &quot;[[:alpha:]]*&quot;</code> 查找不在字符c之后的字符串ei</li>
+<li><code>regex r(pattern);</code> 构造一个用于查找模式的regex</li>
+<li><code>smatch results;</code> 定义一个对象保存搜索结果</li>
+<li><code>string test_str = &quot;receipt freind theif receive&quot;;</code></li>
+<li><code>if (regex_search(test_str, results, r)) cout &lt;&lt; results.str() &lt;&lt; endl;</code> 如有匹配子串，打印匹配的单词。</li>
+</ul>
+</li>
+</ul>
+<p><code>regex</code>（和<code>wregex</code>）选项：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>regex r(re)</code> <code>regex r(re, f)</code></td>
+<td><code>re</code>表示一个正则表达式，它可以是一个<code>string</code>、一对表示字符范围的迭代器、一个指向空字符结尾的字符数组的指针、一个字符指针和一个计数器、一个花括号包围的字符列表。<code>f</code>是指出对象如何处理的标志。<code>f</code>通过下面列出来的值来设置。如果未指定<code>f</code>，其默认值为<code>ECMAScript</code>。</td>
+</tr>
+<tr>
+<td><code>r1 = re</code></td>
+<td>将<code>r1</code>中的正则表达式替换Wie<code>re</code>。<code>re</code>表示一个正则表达式，它可以是另一个<code>regex</code>对象、一个<code>string</code>、一个指向空字符结尾的字符数组的指针或是一个花括号包围的字符列表。</td>
+</tr>
+<tr>
+<td><code>r1.assign(re, f)</code></td>
+<td>和使用赋值运算符（&#x3D;）的效果相同：可选的标志<code>f</code>也和<code>regex</code>的构造函数中对应的参数含义相同。</td>
+</tr>
+<tr>
+<td><code>r.mark_count()</code></td>
+<td><code>r</code>中子表达式的数目</td>
+</tr>
+<tr>
+<td><code>r.flags()</code></td>
+<td>返回<code>r</code>的标志集</td>
+</tr>
+</tbody></table>
+<p>定义<code>regex</code>时指定的标志：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>icase</code></td>
+<td>在匹配过程中忽略大小写</td>
+</tr>
+<tr>
+<td><code>nosubs</code></td>
+<td>不保存匹配的子表达式</td>
+</tr>
+<tr>
+<td><code>optimize</code></td>
+<td>执行速度优先于构造速度</td>
+</tr>
+<tr>
+<td><code>ECMAScript</code></td>
+<td>使用<code>ECMA-262</code>指定的语法</td>
+</tr>
+<tr>
+<td><code>basic</code></td>
+<td>使用<code>POSIX</code>基本的正则表达式语法</td>
+</tr>
+<tr>
+<td><code>extended</code></td>
+<td>使用<code>POSIX</code>扩展的正则表达式语法</td>
+</tr>
+<tr>
+<td><code>awk</code></td>
+<td>使用<code>POSIX</code>版本的<code>awk</code>语言的语法</td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>使用<code>POSIX</code>版本的<code>grep</code>的语法</td>
+</tr>
+<tr>
+<td><code>egrep</code></td>
+<td>使用<code>POSIX</code>版本的<code>egrep</code>的语法</td>
+</tr>
+</tbody></table>
+<ul>
+<li>可以将正则表达式本身看做是一种简单程序语言设计的程序。在运行时，当一个<code>regex</code>对象被初始化或被赋予新模式时，才被“编译”。</li>
+<li>如果编写的正则表达式存在错误，会在运行时抛出一个<code>regex_error</code>的异常。</li>
+<li>避免创建不必要的正则表达式。构建一个<code>regex</code>对象可能比较耗时。</li>
+</ul>
+<h3 id="匹配与regex迭代器类型"><a href="#匹配与regex迭代器类型" class="headerlink" title="匹配与regex迭代器类型"></a>匹配与regex迭代器类型</h3><p><code>sregex_iterator</code>操作（用来获得所有匹配）：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sregex_iterator it(b, e, r);</code></td>
+<td>一个<code>sregex_iterator</code>，遍历迭代器<code>b</code>和<code>e</code>表示的<code>string</code>。它调用<code>sregex_search(b, e, r)</code>将<code>it</code>定位到输入中第一个匹配的位置。</td>
+</tr>
+<tr>
+<td><code>sregex_iterator end;</code></td>
+<td><code>sregex_iterator</code>的尾后迭代器</td>
+</tr>
+<tr>
+<td><code>*it</code>， <code>it-&gt;</code></td>
+<td>根据最后一个调用<code>regex_search</code>的结果，返回一个<code>smatch</code>对象的引用或一个指向<code>smatch</code>对象的指针。</td>
+</tr>
+<tr>
+<td><code>++it</code> ， <code>it++</code></td>
+<td>从输入序列当前匹配位置开始调用<code>regex_search</code>。前置版本返回递增后迭代器；后置版本返回旧值。</td>
+</tr>
+<tr>
+<td><code>it1 == it2</code></td>
+<td>如果两个<code>sregex_iterator</code>都是尾后迭代器，则它们相等。两个非尾后迭代器是从相同的输入序列和<code>regex</code>对象构造，则它们相等。</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将字符串file中所有匹配模式r的子串输出</span></span><br><span class="line"><span class="keyword">for</span> (sregex_iterator <span class="built_in">it</span>(file.<span class="built_in">begin</span>(), file.<span class="built_in">end</span>(), r), end_it; it != end_it; ++it)&#123;</span><br><span class="line">    cout &lt;&lt; it -&gt;<span class="built_in">str</span>() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>smatch</code>操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>m.ready()</code></td>
+<td>如果已经通过调用<code>regex_search</code>或<code>regex_match</code>设置了<code>m</code>，则返回<code>true</code>；否则返回<code>false</code>。如果<code>ready</code>返回<code>false</code>，则对<code>m</code>进行操作是未定义的。</td>
+</tr>
+<tr>
+<td><code>m.size()</code></td>
+<td>如果匹配失败，则返回0，；否则返回最近一次匹配的正则表达式中子表达式的数目。</td>
+</tr>
+<tr>
+<td><code>m.empty()</code></td>
+<td>等价于<code>m.size() == 0</code></td>
+</tr>
+<tr>
+<td><code>m.prefix()</code></td>
+<td>一个<code>ssub_match</code>对象，标识当前匹配之前的序列</td>
+</tr>
+<tr>
+<td><code>m.suffix()</code></td>
+<td>一个<code>ssub_match</code>对象，标识当前匹配之后的部分</td>
+</tr>
+<tr>
+<td><code>m.format(...)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>m.length(n)</code></td>
+<td>第<code>n</code>个匹配的子表达式的大小</td>
+</tr>
+<tr>
+<td><code>m.position(n)</code></td>
+<td>第<code>n</code>个子表达式距离序列开始的长度</td>
+</tr>
+<tr>
+<td><code>m.str(n)</code></td>
+<td>第<code>n</code>个子表达式匹配的<code>string</code></td>
+</tr>
+<tr>
+<td><code>m[n]</code></td>
+<td>对应第<code>n</code>个子表达式的<code>ssub_match</code>对象</td>
+</tr>
+<tr>
+<td><code>m.begin(), m.end()</code></td>
+<td>表示<code>m</code>中<code>ssub_match</code>元素范围的迭代器。</td>
+</tr>
+<tr>
+<td><code>m.cbegin(), m.cend()</code></td>
+<td>常量迭代器</td>
+</tr>
+</tbody></table>
+<h3 id="使用子表达式"><a href="#使用子表达式" class="headerlink" title="使用子表达式"></a>使用子表达式</h3><ul>
+<li>正则表达式语法通常用括号表示子表达式。</li>
+<li>子表达式的索引从1开始。</li>
+<li>在<code>fmt</code>中用<code>$</code>后跟子表达式的索引号来标识一个特定的子表达式。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">regex_search</span>(filename, results, r))</span><br><span class="line">    cout &lt;&lt; results.<span class="built_in">str</span>(<span class="number">1</span>) &lt;&lt; endl;  <span class="comment">// .str(1)获取第一个子表达式匹配结果</span></span><br></pre></td></tr></table></figure>
+
+<p><code>ssub_match</code>子匹配操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>matched</code></td>
+<td>一个<code>public bool</code>数据成员，指出<code>ssub_match</code>是否匹配了</td>
+</tr>
+<tr>
+<td><code>first</code>， <code>second</code></td>
+<td><code>public</code>数据成员，指向匹配序列首元素和尾后位置的迭代器。如果未匹配，则<code>first</code>和<code>second</code>是相等的。</td>
+</tr>
+<tr>
+<td><code>length()</code></td>
+<td>匹配的大小，如果<code>matched</code>为<code>false</code>，则返回0。</td>
+</tr>
+<tr>
+<td><code>str()</code></td>
+<td>返回一个包含输入中匹配部分的<code>string</code>。如果<code>matched</code>为<code>false</code>，则返回空<code>string</code>。</td>
+</tr>
+<tr>
+<td><code>s = ssub</code></td>
+<td>将<code>ssub_match</code>对象<code>ssub</code>转化为<code>string</code>对象<code>s</code>。等价于<code>s=ssub.str()</code>，转换运算符不是<code>explicit</code>的。</td>
+</tr>
+</tbody></table>
+<h3 id="使用regex-replace"><a href="#使用regex-replace" class="headerlink" title="使用regex_replace"></a>使用regex_replace</h3><p>正则表达式替换操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>m.format(dest, fmt, mft)</code>, <code>m.format(fmt, mft)</code></td>
+<td>使用格式字符串<code>fmt</code>生成格式化输出，匹配在<code>m</code>中，可选的<code>match_flag_type</code>标志在<code>mft</code>中。第一个版本写入迭代器<code>dest</code>指向的目的为止，并接受<code>fmt</code>参数，可以是一个<code>string</code>，也可以是一个指向空字符结尾的字符数组的指针。<code>mft</code>的默认值是<code>format_default</code>。</td>
+</tr>
+<tr>
+<td><code>rege_replace(dest, seq, r, fmt, mft)</code>，  <code>regex_replace(seq, r, fmt, mft)</code></td>
+<td>遍历<code>seq</code>，用<code>regex_search</code>查找与<code>regex</code>对象<code>r</code>相匹配的子串，使用格式字符串<code>fmt</code>和可选的<code>match_flag_type</code>标志来生成输出。<code>mft</code>的默认值是<code>match_default</code></td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string phone = <span class="string">&quot;(\\()?(\\d&#123;3&#125;)(\\))?([-. ])?(\\d&#123;3&#125;)([-. ]?)(\\d&#123;4&#125;)&quot;</span></span><br><span class="line">string fmt = <span class="string">&quot;$2.$5.$7&quot;</span>;  <span class="comment">// 将号码格式改为ddd.ddd.dddd</span></span><br><span class="line"><span class="function">regex <span class="title">r</span><span class="params">(phone)</span></span>;  <span class="comment">// 用来寻找模式的regex对象</span></span><br><span class="line">string number = <span class="string">&quot;(908) 555-1800&quot;</span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">regex_replace</span>(number, r, fmt) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>匹配标志：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>match_default</code></td>
+<td>等价于<code>format_default</code></td>
+</tr>
+<tr>
+<td><code>match_not_bol</code></td>
+<td>不将首字符作为行首处理</td>
+</tr>
+<tr>
+<td><code>match_not_eol</code></td>
+<td>不将尾字符作为行尾处理</td>
+</tr>
+<tr>
+<td><code>match_not_bow</code></td>
+<td>不将首字符作为单词首处理</td>
+</tr>
+<tr>
+<td><code>match_not_eow</code></td>
+<td>不将尾字符作为单词尾处理</td>
+</tr>
+<tr>
+<td><code>match_any</code></td>
+<td>如果存在多于一个匹配，则可以返回任意一个匹配</td>
+</tr>
+<tr>
+<td><code>match_not_null</code></td>
+<td>不匹配任何空序列</td>
+</tr>
+<tr>
+<td><code>match_continuous</code></td>
+<td>匹配必须从输入的首字符开始</td>
+</tr>
+<tr>
+<td><code>match_prev_avail</code></td>
+<td>输入序列包含第一个匹配之前的内容</td>
+</tr>
+<tr>
+<td><code>format_default</code></td>
+<td>用<code>ECMAScript</code>规则替换字符串</td>
+</tr>
+<tr>
+<td><code>format_sed</code></td>
+<td>用<code>POSIX sed</code>规则替换字符串</td>
+</tr>
+<tr>
+<td><code>format_no_copy</code></td>
+<td>不输出输入序列中未匹配的部分</td>
+</tr>
+<tr>
+<td><code>format_first_only</code></td>
+<td>只替换子表达式的第一次出现</td>
+</tr>
+</tbody></table>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><ul>
+<li>新标准之前，C和C++都依赖一个简单的C库函数<code>rand</code>来生成随机数，且只符合均匀分布。</li>
+<li>新标准：<strong>随机数引擎</strong> + <strong>随机数分布类</strong>， 定义在   <code>random</code>头文件中。</li>
+<li>C++程序应该使用<code>default_random_engine</code>类和恰当的分布类对象。</li>
+</ul>
+<h3 id="随机数引擎和分布"><a href="#随机数引擎和分布" class="headerlink" title="随机数引擎和分布"></a>随机数引擎和分布</h3><p>随机数引擎操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Engine e;</code></td>
+<td>默认构造函数；使用该引擎类型默认的种子</td>
+</tr>
+<tr>
+<td><code>Engine e(s);</code></td>
+<td>使用整型值<code>s</code>作为种子</td>
+</tr>
+<tr>
+<td><code>e.seed(s)</code></td>
+<td>使用种子<code>s</code>重置引擎的状态</td>
+</tr>
+<tr>
+<td><code>e.min()</code>，<code>e.max()</code></td>
+<td>此引擎可生成的最小值和最大值</td>
+</tr>
+<tr>
+<td><code>Engine::result_type</code></td>
+<td>此引擎生成的<code>unsigned</code>整型类型</td>
+</tr>
+<tr>
+<td><code>e.discard(u)</code></td>
+<td>将引擎推进<code>u</code>步；<code>u</code>的类型为<code>unsigned long long</code></td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化分布类型</span></span><br><span class="line"><span class="function">uniform_int_distribution&lt;<span class="type">unsigned</span>&gt; <span class="title">u</span><span class="params">(<span class="number">0</span>, <span class="number">9</span>)</span></span>;</span><br><span class="line"><span class="comment">// 初始化引擎</span></span><br><span class="line">default_random_engine e;</span><br><span class="line"><span class="comment">// 随机生成0-9的无符号整数</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">u</span>(e) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置随机数发生器种子</strong>：</p>
+<ul>
+<li>种子就是一个数值，引擎可以利用它从序列中一个新位置重新开始生成随机数。</li>
+<li>种子可以使用系统函数<code>time(0)</code>。</li>
+</ul>
+<h3 id="其他随机数分布"><a href="#其他随机数分布" class="headerlink" title="其他随机数分布"></a>其他随机数分布</h3><p>分布类型的操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Dist d;</code></td>
+<td>默认够赞函数；使<code>d</code>准备好被使用。其他构造函数依赖于<code>Dist</code>的类型；分布类型的构造函数是<code>explicit</code>的。</td>
+</tr>
+<tr>
+<td><code>d(e)</code></td>
+<td>用相同的<code>e</code>连续调用<code>d</code>的话，会根据<code>d</code>的分布式类型生成一个随机数序列；<code>e</code>是一个随机数引擎对象。</td>
+</tr>
+<tr>
+<td><code>d.min()</code>,<code>d.max()</code></td>
+<td>返回<code>d(e)</code>能生成的最小值和最大值。</td>
+</tr>
+<tr>
+<td><code>d.reset()</code></td>
+<td>重建<code>d</code>的状态，是的随后对<code>d</code>的使用不依赖于<code>d</code>已经生成的值。</td>
+</tr>
+</tbody></table>
+<h2 id="IO库再探"><a href="#IO库再探" class="headerlink" title="IO库再探"></a>IO库再探</h2><h3 id="格式化输入与输出"><a href="#格式化输入与输出" class="headerlink" title="格式化输入与输出"></a>格式化输入与输出</h3><ul>
+<li>使用操纵符改变格式状态。</li>
+<li>控制布尔值的格式： <code>cout &lt;&lt; boolalpha &lt;&lt; true &lt;&lt; endl;</code></li>
+<li>指定整型的进制：<code>cout &lt;&lt; dec &lt;&lt; 20 &lt;&lt; endl;</code></li>
+</ul>
+<p>定义在<code>iostream</code>中的操纵符：</p>
+<table>
+<thead>
+<tr>
+<th>操纵符</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>boolalpha</code></td>
+<td>将<code>true</code>和<code>false</code>输出为字符串</td>
+</tr>
+<tr>
+<td><code>* noboolalpha</code></td>
+<td>将<code>true</code>和<code>false</code>输出为1,0</td>
+</tr>
+<tr>
+<td><code>showbase</code></td>
+<td>对整型值输出表示进制的前缀</td>
+</tr>
+<tr>
+<td><code>* noshowbase</code></td>
+<td>不生成表示进制的前缀</td>
+</tr>
+<tr>
+<td><code>showpoint</code></td>
+<td>对浮点值总是显示小数点</td>
+</tr>
+<tr>
+<td><code>* noshowpoint</code></td>
+<td>只有当浮点值包含小数部分时才显示小数点</td>
+</tr>
+<tr>
+<td><code>showpos</code></td>
+<td>对非负数显示<code>+</code></td>
+</tr>
+<tr>
+<td><code>* noshowpos</code></td>
+<td>对非负数不显示<code>+</code></td>
+</tr>
+<tr>
+<td><code>uppercase</code></td>
+<td>在十六进制中打印<code>0X</code>，在科学计数法中打印<code>E</code></td>
+</tr>
+<tr>
+<td><code>* nouppercase</code></td>
+<td>在十六进制中打印<code>0x</code>，在科学计数法中打印<code>e</code></td>
+</tr>
+<tr>
+<td><code>* dec</code></td>
+<td>整型值显示为十进制</td>
+</tr>
+<tr>
+<td><code>hex</code></td>
+<td>整型值显示为十六进制</td>
+</tr>
+<tr>
+<td><code>oct</code></td>
+<td>整型值显示为八进制</td>
+</tr>
+<tr>
+<td><code>left</code></td>
+<td>在值的右侧添加填充字符</td>
+</tr>
+<tr>
+<td><code>right</code></td>
+<td>在值的左侧添加填充字符</td>
+</tr>
+<tr>
+<td><code>internal</code></td>
+<td>在符号和值之间添加填充字符</td>
+</tr>
+<tr>
+<td><code>fixed</code></td>
+<td>浮点值显示为定点十进制</td>
+</tr>
+<tr>
+<td><code>scientific</code></td>
+<td>浮点值显示为科学计数法</td>
+</tr>
+<tr>
+<td><code>hexfloat</code></td>
+<td>浮点值显示为十六进制（C++11）</td>
+</tr>
+<tr>
+<td><code>defaultfloat</code></td>
+<td>充值浮点数格式为十进制（C++11）</td>
+</tr>
+<tr>
+<td><code>unitbuf</code></td>
+<td>每次输出操作后都刷新缓冲区</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>* nounitbuf</code></td>
+</tr>
+<tr>
+<td><code>* skipws</code></td>
+<td>输入运算符跳过空白符</td>
+</tr>
+<tr>
+<td><code>noskipws</code></td>
+<td>输入运算符不跳过空白符</td>
+</tr>
+<tr>
+<td><code>flush</code></td>
+<td>刷新<code>ostream</code>缓冲区</td>
+</tr>
+<tr>
+<td><code>ends</code></td>
+<td>插入空字符，然后刷新<code>ostream</code>缓冲区</td>
+</tr>
+<tr>
+<td><code>endl</code></td>
+<td>插入换行，然后刷新<code>ostream</code>缓冲区</td>
+</tr>
+</tbody></table>
+<p>其中<code>*</code>表示默认的流状态。</p>
+<h3 id="未格式化的输入-输出操作"><a href="#未格式化的输入-输出操作" class="headerlink" title="未格式化的输入&#x2F;输出操作"></a>未格式化的输入&#x2F;输出操作</h3><p>单字节低层IO操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>is.get(ch)</code></td>
+<td>从<code>istream is</code>读取下一个字节存入字符<code>cn</code>中。返回<code>is</code>。</td>
+</tr>
+<tr>
+<td><code>os.put(ch)</code></td>
+<td>将字符<code>ch</code>输出到<code>ostream os</code>。返回<code>os</code>。</td>
+</tr>
+<tr>
+<td><code>is.get()</code></td>
+<td>将<code>is</code>的下一个字节作为<code>int</code>返回</td>
+</tr>
+<tr>
+<td><code>is.putback(ch)</code></td>
+<td>将字符<code>ch</code>放回<code>is</code>。返回<code>is</code>。</td>
+</tr>
+<tr>
+<td><code>is.unget()</code></td>
+<td>将<code>is</code>向后移动一个字节。返回<code>is</code>。</td>
+</tr>
+<tr>
+<td><code>is.peek()</code></td>
+<td>将下一个字节作为<code>int</code>返回，但不从流中删除它。</td>
+</tr>
+</tbody></table>
+<p>多字节低层IO操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>is.get(sink, size, delim)</code></td>
+<td>从<code>is</code>中读取最多<code>size</code>个字节，并保存在字符数组中，字符数组的起始地址由<code>sink</code>给出。读取过程直到遇到字符<code>delim</code>或读取了<code>size</code>个字节或遇到文件尾时停止。如果遇到了<code>delim</code>，则将其留在输入流中，不读取出来存入<code>sink</code>。</td>
+</tr>
+<tr>
+<td><code>is.getline(sink, size, delim)</code></td>
+<td>与接收三个参数的<code>get</code>版本类似，但会读取并丢弃<code>delim</code>。</td>
+</tr>
+<tr>
+<td><code>is.read(sink, size)</code></td>
+<td>读取最多<code>size</code>个字节，存入字符数组<code>sink</code>中。返回<code>is</code>。</td>
+</tr>
+<tr>
+<td><code>is.gcount()</code></td>
+<td>返回上一个未格式化读取从<code>is</code>读取的字节数</td>
+</tr>
+<tr>
+<td><code>os.write(source, size)</code></td>
+<td>将字符数组<code>source</code>中的<code>size</code>个字节写入<code>os</code>。返回<code>os</code>。</td>
+</tr>
+<tr>
+<td><code>is.ignore(size, delim)</code></td>
+<td>读取并忽略最多<code>size</code>个字符，包括<code>delim</code>。与其他未格式化函数不同，<code>ignore</code>有默认参数：<code>size</code>默认值是1，<code>delim</code>的默认值为文件尾。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>注意：一般情况下，主张使用标准库提供的高层抽象，低层函数容易出错。</li>
+</ul>
+<h3 id="流随机访问"><a href="#流随机访问" class="headerlink" title="流随机访问"></a>流随机访问</h3><ul>
+<li>只适用于<code>fstream</code>和<code>sstream</code>。</li>
+<li>通过将标记<code>seek</code>到一个给定位置来重定位它。</li>
+<li><code>tell</code>告诉我们标记的当前位置。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tellg()</code>，<code>tellp</code></td>
+<td>返回一个输入流中（<code>tellg</code>）或输出流中（<code>tellp</code>）标记的当前位置。</td>
+</tr>
+<tr>
+<td><code>seekg(pos)</code>，<code>seekp(pos)</code></td>
+<td>在一个输入流或输出流中将标记重定位到给定的绝对地址。<code>pos</code>通常是一个当前<code>teelg</code>或<code>tellp</code>返回的值。</td>
+</tr>
+<tr>
+<td><code>seekp(off, from)</code>，<code>seekg(off, from)</code></td>
+<td>在一个输入流或输出流中将标记定位到<code>from</code>之前或之后<code>off</code>个字符，<code>from</code>可以是下列值之一：<code>beg</code>，偏移量相对于流开始位置；<code>cur</code>，偏移量相对于流当前位置；<code>end</code>，偏移量相对于流结尾位置。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-17/" data-id="cmbc76op1000lkmq4bm56ebpi" data-title="C++ Primer 5th 17" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-18/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          C++ Primer 5th 18
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-16/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">C++ Primer 5th 16</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

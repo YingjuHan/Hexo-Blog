@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++ Primer 5th 11 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第十一章 关联容器 关联容器和顺序容器的不同：关联容器中的元素时按照关键字来保存和访问的。 关联容器支持通过关键字来高效地查找和读取元素，基本的关联容器类型是 map和 set。  关联容器类型：    容器类型 解释    按顺序存储    map 关键数组：保存关键字-值对   set 关键字即值，即只保存关键字的容器   multimap 支持同一个键多次出现的map   multiset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer 5th 11">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-11/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="第十一章 关联容器 关联容器和顺序容器的不同：关联容器中的元素时按照关键字来保存和访问的。 关联容器支持通过关键字来高效地查找和读取元素，基本的关联容器类型是 map和 set。  关联容器类型：    容器类型 解释    按顺序存储    map 关键数组：保存关键字-值对   set 关键字即值，即只保存关键字的容器   multimap 支持同一个键多次出现的map   multiset">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-02-02T14:02:16.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.131Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Primer-5th-11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-11/" class="article-date">
+  <time class="dt-published" datetime="2025-02-02T14:02:16.000Z" itemprop="datePublished">2025-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++ Primer 5th 11
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第十一章-关联容器"><a href="#第十一章-关联容器" class="headerlink" title="第十一章 关联容器"></a>第十一章 关联容器</h1><ul>
+<li>关联容器和顺序容器的不同：关联容器中的元素时按照<strong>关键字</strong>来保存和访问的。</li>
+<li>关联容器支持通过关键字来高效地查找和读取元素，基本的关联容器类型是 <code>map</code>和 <code>set</code>。</li>
+</ul>
+<p><strong>关联容器类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>容器类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按顺序存储</td>
+<td></td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>关键数组：保存<code>关键字-值</code>对</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td>关键字即值，即只保存关键字的容器</td>
+</tr>
+<tr>
+<td><code>multimap</code></td>
+<td>支持同一个键多次出现的<code>map</code></td>
+</tr>
+<tr>
+<td><code>multiset</code></td>
+<td>支持同一个键多次出现的<code>set</code></td>
+</tr>
+<tr>
+<td>无序集合</td>
+<td></td>
+</tr>
+<tr>
+<td><code>unordered_map</code></td>
+<td>用哈希函数组织的<code>map</code></td>
+</tr>
+<tr>
+<td><code>unordered_set</code></td>
+<td>用哈希函数组织的<code>set</code></td>
+</tr>
+<tr>
+<td><code>unordered_multimap</code></td>
+<td>哈希组织的<code>map</code>，关键字可以重复出现</td>
+</tr>
+<tr>
+<td><code>unordered_multiset</code></td>
+<td>哈希组织的<code>set</code>，关键字可以重复出现</td>
+</tr>
+</tbody></table>
+<h2 id="关联容器概述"><a href="#关联容器概述" class="headerlink" title="关联容器概述"></a>关联容器概述</h2><h3 id="定义关联容器"><a href="#定义关联容器" class="headerlink" title="定义关联容器"></a>定义关联容器</h3><ul>
+<li>需要指定元素类型。</li>
+<li>列表初始化：<ul>
+<li><code>map</code>：<code>map&lt;string, int&gt; word_count = &#123;&#123;"a", 1&#125;, &#123;"b", 2&#125;&#125;;</code></li>
+<li><code>set</code>：<code>set&lt;string&gt; exclude = &#123;&quot;the&quot;, &quot;a&quot;&#125;;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="关键字类型的要求"><a href="#关键字类型的要求" class="headerlink" title="关键字类型的要求"></a>关键字类型的要求</h3><ul>
+<li>对于有序容器，关键字类型必须定义元素比较的方法。默认是<code>&lt;</code>。</li>
+<li>如果想传递一个比较的函数，可以这样定义：<code>multiset&lt;Sales_data, decltype(compareIsbn)*&gt; bookstore(compareIsbn);</code></li>
+</ul>
+<h3 id="pair"><a href="#pair" class="headerlink" title="pair"></a>pair</h3><ul>
+<li>在<code>utility</code>头文件中定义。</li>
+<li>一个<code>pair</code>保存两个数据成员，两个类型不要求一样。</li>
+</ul>
+<p><strong>pair的操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pair&lt;T1, T2&gt; p;</code></td>
+<td><code>p</code>是一个<code>pair</code>，两个类型分别是<code>T1</code>和<code>T2</code>的成员都进行了值初始化。</td>
+</tr>
+<tr>
+<td><code>pair&lt;T1, T2&gt; p(v1, v2);</code></td>
+<td><code>first</code>和<code>second</code>分别用<code>v1</code>和<code>v2</code>进行初始化。</td>
+</tr>
+<tr>
+<td><code>pair&lt;T1, T2&gt;p = &#123;v1, v2&#125;;</code></td>
+<td>等价于&#96;p(v1, v2)</td>
+</tr>
+<tr>
+<td><code>make_pair(v1, v2);</code></td>
+<td><code>pair</code>的类型从<code>v1</code>和<code>v2</code>的类型推断出来。</td>
+</tr>
+<tr>
+<td><code>p.first</code></td>
+<td>返回<code>p</code>的名为<code>first</code>的数据成员。</td>
+</tr>
+<tr>
+<td><code>p.second</code></td>
+<td>返回<code>p</code>的名为<code>second</code>的数据成员。</td>
+</tr>
+<tr>
+<td><code>p1 relop p2</code></td>
+<td>运算关系符按字典序定义。</td>
+</tr>
+<tr>
+<td><code>p1 == p2</code></td>
+<td>必须两对元素两两相等</td>
+</tr>
+<tr>
+<td><code>p1 != p2</code></td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<h2 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h2><p><strong>关联容器额外的类型别名</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型别名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>key_type</code></td>
+<td>此容器类型的关键字类型</td>
+</tr>
+<tr>
+<td><code>mapped_type</code></td>
+<td>每个关键字关联的类型，只适用于<code>map</code></td>
+</tr>
+<tr>
+<td><code>value_type</code></td>
+<td>对于<code>map</code>，是<code>pair&lt;const key_type, mapped_type&gt;</code>; 对于<code>set</code>，和<code>key_type</code>相同。</td>
+</tr>
+</tbody></table>
+<h3 id="关联容器迭代器"><a href="#关联容器迭代器" class="headerlink" title="关联容器迭代器"></a>关联容器迭代器</h3><ul>
+<li>解引用一个关联容器迭代器时，会得到一个类型为容器的<code>value_type</code>的值的引用。</li>
+<li><code>set</code>的迭代器是<code>const</code>的。</li>
+<li>遍历关联容器：使用<code>begin</code>和<code>end</code>，遍历<code>map</code>、<code>multimap</code>、<code>set</code>、<code>multiset</code>时，迭代器按<strong>关键字升序</strong>遍历元素。</li>
+</ul>
+<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><p><strong>关联容器<code>insert</code>操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><code>insert</code>操作</th>
+<th>关联容器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.insert(v)</code>  <code>c.emplace(args)</code></td>
+<td><code>v</code>是<code>value_type</code>类型的对象；<code>args</code>用来构造一个元素。 对于<code>map</code>和<code>set</code>，只有元素的关键字不存在<code>c</code>中才插入或构造元素。函数返回一个<code>pair</code>，包含一个迭代器，指向具有指定关键字的元素，以及一个指示插入是否成功的<code>bool</code>值。对于<code>multimap</code>和<code>multiset</code>则会插入范围中的每个元素。</td>
+</tr>
+<tr>
+<td><code>c.insert(b, e)</code> <code>c.insert(il)</code></td>
+<td><code>b</code>和<code>e</code>是迭代器，表示一个<code>c::value_type</code>类型值的范围；<code>il</code>是这种值的花括号列表。函数返回<code>void</code>。对于 <code>map</code>和<code>set</code>，只插入关键字不在<code>c</code>中的元素。</td>
+</tr>
+<tr>
+<td><code>c.insert(p, v)</code>  <code>c.emplace(p, args)</code></td>
+<td>类似<code>insert(v)</code>，但将迭代器<code>p</code>作为一个提示，指出从哪里开始搜索新元素应该存储的位置。返回一个迭代器，指向具有给定关键字的元素。</td>
+</tr>
+</tbody></table>
+<p>向<code>map</code>添加元素：</p>
+<ul>
+<li><code>word_count.insert(&#123;word, 1&#125;);</code></li>
+<li><code>word_count.insert(make_pair(word, 1));</code></li>
+<li><code>word_count.insert(pair&lt;string, size_t&gt;(word, 1));</code></li>
+<li><code>word_count.insert(map&lt;string, size_t&gt;::value_type (word, 1));</code></li>
+</ul>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p><strong>从关联容器中删除元素</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.erase(k)</code></td>
+<td>从<code>c</code>中删除每个关键字为<code>k</code>的元素。返回一个<code>size_type</code>值，指出删除的元素的数量。</td>
+</tr>
+<tr>
+<td><code>c.erase(p)</code></td>
+<td>从<code>c</code>中删除迭代器<code>p</code>指定的元素。<code>p</code>必须指向<code>c</code>中一个真实元素，不能等于<code>c.end()</code>。返回一个指向<code>p</code>之后元素的迭代器，若<code>p</code>指向<code>c</code>中的尾元素，则返回<code>c.end()</code></td>
+</tr>
+<tr>
+<td><code>c.erase(b, e)</code></td>
+<td>删除迭代器对<code>b</code>和<code>e</code>所表示范围中的元素。返回<code>e</code>。</td>
+</tr>
+</tbody></table>
+<h3 id="下标操作"><a href="#下标操作" class="headerlink" title="下标操作"></a>下标操作</h3><p><strong><code>map</code>和<code>unordered_map</code>的下标操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c[k]</code></td>
+<td>返回关键字为<code>k</code>的元素；如果<code>k</code>不在<code>c</code>中，添加一个关键字为<code>k</code>的元素，对其值初始化。</td>
+</tr>
+<tr>
+<td><code>c.at(k)</code></td>
+<td>访问关键字为<code>k</code>的元素，带参数检查；若<code>k</code>不存在在<code>c</code>中，抛出一个<code>out_of_range</code>异常。</td>
+</tr>
+</tbody></table>
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p><strong>在一个关联容器中查找元素</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.find(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字为<code>k</code>的元素，若<code>k</code>不在容器中，则返回尾后迭代器</td>
+</tr>
+<tr>
+<td><code>c.count(k)</code></td>
+<td>返回关键字等于<code>k</code>的元素的数量。对于不允许重复关键字的容器，返回值永远是0或1。</td>
+</tr>
+<tr>
+<td><code>c.lower_bound(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字<strong>不小于</strong><code>k</code>的元素。</td>
+</tr>
+<tr>
+<td><code>c.upper_bound(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字<strong>大于</strong><code>k</code>的元素。</td>
+</tr>
+<tr>
+<td><code>c.equal_range(k)</code></td>
+<td>返回一个迭代器<code>pair</code>，表示关键字等于<code>k</code>的元素的范围。若<code>k</code>不存在，<code>pair</code>的两个成员均等于<code>c.end()</code>。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>lower_bound</code>和<code>upper_bound</code>不适用于无序容器。</li>
+<li>下标和<code>at</code>操作只适用于非<code>const</code>的<code>map</code>和<code>unordered_map</code>。</li>
+</ul>
+<h2 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h2><ul>
+<li>有序容器使用比较运算符来组织元素；无序容器使用哈希函数和关键字类型的<code>==</code>运算符。</li>
+<li>理论上哈希技术可以获得更好的性能。</li>
+<li>无序容器在存储上组织为一组桶(bucket)，每个桶保存零个或多个元素。无序容器使用一个哈希函数将元素映射到桶。</li>
+</ul>
+<p><strong>无序容器管理操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>桶接口</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>c.bucket_count()</code></td>
+<td>正在使用的桶的数目</td>
+</tr>
+<tr>
+<td><code>c.max_bucket_count()</code></td>
+<td>容器能容纳的最多的桶的数目</td>
+</tr>
+<tr>
+<td><code>c.bucket_size(n)</code></td>
+<td>第<code>n</code>个桶中有多少个元素</td>
+</tr>
+<tr>
+<td><code>c.bucket(k)</code></td>
+<td>关键字为<code>k</code>的元素在哪个桶中</td>
+</tr>
+<tr>
+<td><strong>桶迭代</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>local_iterator</code></td>
+<td>可以用来访问桶中元素的迭代器类型</td>
+</tr>
+<tr>
+<td><code>const_local_iterator</code></td>
+<td>桶迭代器的<code>const</code>版本</td>
+</tr>
+<tr>
+<td><code>c.begin(n)</code>，<code>c.end(n)</code></td>
+<td>桶<code>n</code>的首元素迭代器</td>
+</tr>
+<tr>
+<td><code>c.cbegin(n)</code>，<code>c.cend(n)</code></td>
+<td>与前两个函数类似，但返回<code>const_local_iterator</code>。</td>
+</tr>
+<tr>
+<td><strong>哈希策略</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>c.load_factor()</code></td>
+<td>每个桶的平均元素数量，返回<code>float</code>值。</td>
+</tr>
+<tr>
+<td><code>c.max_load_factor()</code></td>
+<td><code>c</code>试图维护的平均比桶大小，返回<code>float</code>值。<code>c</code>会在需要时添加新的桶，以使得<code>load_factor&lt;=max_load_factor</code></td>
+</tr>
+<tr>
+<td><code>c.rehash(n)</code></td>
+<td>重组存储，使得<code>bucket_count&gt;=n</code>，且<code>bucket_count&gt;size/max_load_factor</code></td>
+</tr>
+<tr>
+<td><code>c.reverse(n)</code></td>
+<td>重组存储，使得<code>c</code>可以保存<code>n</code>个元素且不必<code>rehash</code>。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-11/" data-id="cmbc76oou0005kmq4037iezig" data-title="C++ Primer 5th 11" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-12/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          C++ Primer 5th 12
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">C++ Primer 5th 10</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

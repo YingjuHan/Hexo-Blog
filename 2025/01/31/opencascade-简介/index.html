@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>opencascade 简介 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="opencascade造型引擎功能介绍 现今的CAD 系统大多通常都基于CAD 系统提供的二次开发包，用户根据要求定制符合自己要求的功能。AutoCAD就提供了AutoLISP、ADS 等都是比较通用的开发工具包。UG 也提供了多种二次开发工具：UG&#x2F;Open MenuScript、UG&#x2F;Open API 等。然而此类开发有着自身的缺点： 1．各个CAD 系统提供的二次开发工作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opencascade 简介">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/01/31/opencascade-%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="opencascade造型引擎功能介绍 现今的CAD 系统大多通常都基于CAD 系统提供的二次开发包，用户根据要求定制符合自己要求的功能。AutoCAD就提供了AutoLISP、ADS 等都是比较通用的开发工具包。UG 也提供了多种二次开发工具：UG&#x2F;Open MenuScript、UG&#x2F;Open API 等。然而此类开发有着自身的缺点： 1．各个CAD 系统提供的二次开发工作">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-01-31T12:11:48.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.135Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="opencascade">
+<meta property="article:tag" content="3d">
+<meta property="article:tag" content="建模">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-opencascade-简介" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/01/31/opencascade-%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time class="dt-published" datetime="2025-01-31T12:11:48.000Z" itemprop="datePublished">2025-01-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      opencascade 简介
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/amtf/articles/2285775.html">opencascade造型引擎功能介绍</a></p>
+<p>现今的CAD 系统大多通常都基于CAD 系统提供的二次开发包，用户根据要求定制符合自己要求的功能。AutoCAD就提供了AutoLISP、ADS 等都是比较通用的开发工具包。UG 也提供了多种二次开发工具：UG&#x2F;Open MenuScript、UG&#x2F;Open API 等。然而此类开发有着自身的缺点：</p>
+<p>1．各个CAD 系统提供的二次开发工作各不相同，他们只能提供对特定CAD 系统的支持，甚至不支持相同CAD 系统的不同版本。</p>
+<p>2．二次开发构建的协同设计平台，开放性能不够理想，很难充分利用企业现有的软、硬件条件，也很难利用将来增加的各类设施。因为在开发期间，很多功能已和具体的CAD系统静态绑定了。</p>
+<p>3．一般CAD 系统功能强大，操作复杂，二次开发只能开发其中的一部分功能。如果要开发一个功能强大的平台，其工作量非常大，从而成本相当高。</p>
+<p>Open CASCADE，一个开放源码CAD 内核，可以定制和扩展（添加新的功能组件，类的进一步继承），面向CAD&#x2F;CAM ， 对主流CAD 数据格式提供支持（STEP&#x2F;STL&#x2F;IGES 等，可自行开发转换程序提供特定数据格式的支持），提供高级建模函数（拟合，有理样条曲线，拉</p>
+<p>伸、旋转、扫出、层叠拉伸、圆角、倒角、薄壳、修剪、偏移等），参数化模型，提供几何模型的特征提取，对Visual C++&#x2F;MFC 有很好的支持。</p>
+<p>&nbsp;</p>
+<p>Open CASCADE是一套开放源代码的CAD&#x2F;CAM&#x2F;CAE几何模型核心，源自于法国的Matra Datavision公司，这一套函式库系统原来是著名的CADCAM软体EUCLID的开发平台，但是在1998年， Matra Datavision改变了经营策略，从以销售软体为主改变为提供CAD&#x2F;CAM&#x2F;CAE软体服务为主的获利模式，并且在1999年公布Open CASCADE的程式原始码，任何人都可以在该公司的网站上下载并且使用这些程式码，而Matra Datavision则以此函式库为基础位客户建立客制化的数值模拟软体，国内CADCAM产业所需的套装软体常常动辄数百万甚至上千万，如此高昂的软体 费用对于中小企业来说确实是非常沉重的负担，而且套装软体中的功能有些其实根本用不到，但是软体使用者却必须花钱购买这些用不到的功能，如果能够针对中小 企业的需求建构一个精简化的CAD&#x2F;CAM软体，并且在生产需求改变的时候才增加新的功能，将可以有效节省软体成本，而Open CASCADE的成功经验或许可以提供产业界甚至学术界一些新的思考方向。</p>
+<p>Open CASCADE是一个功能强大的三维建模工具，提供了点、线、面、体和复杂形体的显示和交互操作，经过深度开发后可实现纹理、光照、图元填充、渲染等图形操作和放大、缩小、旋转、漫游、模拟飞行、模拟穿越等动态操作。</p>
+<p>&nbsp;  开源Open CASCADE从底层构建的CAD平台，所以在做机械仿真方面会好用很多，比如数控加工中模拟切屑的去除过程，对于干涉的检查等，使用CASCADE的实体布尔运算即可都可以实现。</p>
+<p>&nbsp;</p>
+<p>OpenCascade提供二维和三维几何体的生成、显示和分析。主要功能有：</p>
+<p>1．创建锥、柱、环等基本几何体；</p>
+<p>2．对几何体进行布尔操作（相加，相减，相交运算）；</p>
+<p>3．倒角，斜切，镂空，偏移，扫视；</p>
+<p>4．几何空间关系计算（法线，点积，叉积，投影，拟合等）；</p>
+<p>5．几何体分析（质心，体积，曲率等）；</p>
+<p>6．空间变换（平移，缩放，旋转）。</p>
+<p>&nbsp;</p>
+<p>高级功能：</p>
+<p>1．应用框架服务；</p>
+<p>2．数据交换服务。</p>
+<p>&nbsp;</p>
+<p>&nbsp;     OCC是基于OO概念的C++类库，用于精密设备等设计应用程序。典型的应用是CAD（2D&#x2F;3D）应用程序的开发，制造业，仿真，或者一些其他的图形工具。OCC让你能够很快的开发这些程序。</p>
+<p>&nbsp;</p>
+<p>OCC提供以下模块:</p>
+<p>&nbsp;</p>
+<p>n   提供2D&#x2F;3D几何模型库，用以创建任意模型: 创建基本图元包含：棱柱，圆柱，棱锥，圆环等实现了布尔运算（交并差）</p>
+<p>&nbsp;</p>
+<p>l   对实体进行倒角，圆角等操作</p>
+<p>l   用偏移，壳，镂空等方式创建实体</p>
+<p>l   计算属性，例如：surface, volume, center of gravity, curvature</p>
+<p>l   计算几何 projection, interpolation, approximation</p>
+<p>&nbsp;</p>
+<p>n   模型的显示，和视图操作等这些可视化模块:</p>
+<p>l   3D 旋转</p>
+<p>l   缩放</p>
+<p>l   阴影</p>
+<p>&nbsp;</p>
+<p>n   一个应用程序框架设计:</p>
+<p>l   让没有几何信息的应用程序联合几何信息</p>
+<p>l   参数化模型</p>
+<p>l   Java Application Desktop (JAD), a framework for creating your Graphical User Interfaces (GUI)</p>
+<p>&nbsp;</p>
+<p>n   数据交换模块提供了将OCC模型导入，导出为IGES和STEP等这些标准格式的功能。</p>
+<p>Open CASCADE 模型库是Open CASCADE公司基于 CAS.CADE 技术 开发和销售的。它的设计是组件化的。 As such, they separate C++ classes for:</p>
+<p>&nbsp;</p>
+<p>l   定义数据结构 (geometric modeling, display 和 graphic selection)</p>
+<p>l   实现复杂算法</p>
+<p>l   提供应用程序接口 (APIs)</p>
+<p>&nbsp;</p>
+<p>让有关系的或者相似的类在同一个包内可以防止类的冲突;</p>
+<p>C++ 类名的前面加上了包的名字做前缀。比如所有用来定义3D几何对象的类都在前面加上 Geom前缀。在 Geom中, 实现 Bezier surfaces 的类被命名为 BezierSurface, 它的全名是Geom_BezierSurface。</p>
+<p>&nbsp;</p>
+<p>大的模块划分为6个：</p>
+<p>基础类：Foundation Classes</p>
+<p>模型数据：Modeling Data</p>
+<p>建模算法：Modeling Algorithms</p>
+<p>可视化：Visualization</p>
+<p>数据交换：Data Exchange</p>
+<p>程序框架：Application Framework</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>OpenCasCade 6.3目录结构：</p>
+<p>&nbsp;</p>
+<p>l   <em>data - 这里面包含各种不同格式的模型文件。都是occ支持的格式。</em></p>
+<p>l   <em>doc –occ的文档。</em></p>
+<p>l   <em>ros&#x2F;adm - occ团队工具，可以用来重新生成occ。</em></p>
+<p>l   <em>ros&#x2F;adm&#x2F;win32 - 包含Visual C++ 6.0., 7.1. 和 8.0.的工程文件, 用来生成occ的win32版本。</em></p>
+<p>l   <em>ros&#x2F;adm&#x2F;win64 - 包含 Visual C++ 8.0.工程,用来生成win平台64位版本。</em></p>
+<p>l   <em>ros&#x2F;drv - 此文件夹包含WOK生成的源码文件。</em></p>
+<p>l   <em>ros&#x2F;inc - 包含所有的occ头文件。</em></p>
+<p>l   <em>ros&#x2F;src - 此文件夹包含occ源码，根据开发模块组织存放。</em></p>
+<p>l   <em>ros&#x2F;win32 - 此文件夹包含了occ的可执行程序（dll）和lib，有debug，release。</em></p>
+<p>l   <em>Samples - 此文件夹包含了帮助文档中的标准例程。</em></p>
+<p>l   <em>tools - 包含OCAF 浏览器 和 MFC 应用程序向导工具;</em></p>
+<p>l   <em>wok – 此文件夹包含 WOK (Workshop Organization Kit) 工具包，用以组织大型项目和开发团队。</em></p>
+<p>l   <em>3rdparty - 此文件夹包含用以支持occ工作的第三方库(Java, QT and Tcl) 和例程。</em></p>
+<p>l   <em>uninstall - 卸载要用到的文件。</em></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>VS 下 Open Cascade Source Code 编译及自定义工程设置：</p>
+<p>&nbsp;</p>
+<p>源码编译–工程编译顺序：</p>
+<p>l   Foundation Classes (file FoundationClasses.*)</p>
+<p>l   Modeling Data (file ModelingData.*)</p>
+<p>l   Modeling Algorithms (file ModelingAlgorithms.*)</p>
+<p>l   Visualization (file Visualization.*)</p>
+<p>l   Application Framework (file ApplicationFramework.*)</p>
+<p>l   Data Exchange (file DataExchange.*)</p>
+<p>l   Draw (file Draw.*)</p>
+<p>l   WOK (file WOK.*)：<strong><em>WOK (Workshop Organization Kit) is Open CASCADE development environment。</em></strong></p>
+<p>l   Wrappers (file Wrappers.*)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img src="data:image/jpeg;base64,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" alt="https:&#x2F;&#x2F;pic002.cnblogs.com&#x2F;images&#x2F;2011&#x2F;349517&#x2F;2011111016053679.jpg"></p>
+<p>&nbsp;<br>OCC的结构框图</p>
+<p>&nbsp;</p>
+<p>1.1   _Foundation Classes_基础类提供了一些通用的服务：</p>
+<p>n   基本数据类型，字符串等</p>
+<p>n   堆内存的自动化管理</p>
+<p>n   异常处理</p>
+<p>n   局部支持多线程</p>
+<p>n   数据集合的处理</p>
+<p>n   向量、矩阵及原始几何类型的数据计算工具</p>
+<p>n   用ASCLL文件保存数据的基本服务</p>
+<p>以上服务组织在以下三个类库中：</p>
+<p>n   Kernel Classes（内核- TKernel）</p>
+<p>n   Math Utilities（数据- TKMath）</p>
+<p>n   Basic Persistence（基础持久存储-TKAdvTools）</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th><strong>项目</strong></th>
+<th><strong>目录名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>TKernel</strong></td>
+<td>Dico</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>FSD</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Message</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MMgt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>NCollection</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>OSD</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>数据及物理数量，是一个REAL 值；包括了所有您所需要的物理量。</td>
+<td></td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>SortTools</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>StdFail</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TCollection</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TColStd</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TShort</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Units</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>UnitsAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKMath</strong></td>
+<td>Bnd</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BSplCLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BSplSLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Convert</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>CSLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ElCLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ElSLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>gp</td>
+<td>STEP-compliant，实现基本几何及代数实体，用于定义和处理基本数据结构。<br><br>当在更为复杂的数据结构中时，GP实体不可以共享。</td>
+<td></td>
+</tr>
+<tr>
+<td>math</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>PLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Poly</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TColgp</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopLoc</td>
+<td>OCC中使用的拓扑数据结构包；提供了处理三维局部坐标系的资源，</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKAdvTools</strong></td>
+<td>Dynamic</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>Expr</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ExprIntrp</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GraphDS</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GraphTools</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Materials</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+<ol>
+<li><strong>1.</strong>      Root Classes是OCC的基本内核，是其它所有类创建的基础，包括：</li>
+</ol>
+<p>l   基本数据类型，如BOOLEAN、CHARACTER、INTEGER、REAL(实型)；</p>
+<p>l   可优化配置和回收大量的C++对象的，基于计数的内存管理器；</p>
+<p>l   基类（Standard_Transient）,通过智能指针-OCC句柄进行自动化内存管理，大多数的OCC类从该类继承；</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>2.</strong>      Quantities类库提供以下服务**<em>Standard_Real class</em>**：</li>
+</ol>
+<p>l   常用**<em>数学及物理量</em>**的基本类型（如长度、面积、体积、质量、密度、重量、温度和压力）；</p>
+<p>l   单位的转换</p>
+<p>l   日期时间信息</p>
+<p>l   颜色的管理</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>3.</strong>      Exceptions类库能通过任何OCC功能引发，且兼容ANSI C++标准，允许你处理异常情况；OCC中的每一个异常类都直接或间接的继承于Standard_Failure。</li>
+</ol>
+<p>&nbsp;</p>
+<ol>
+<li><strong>4.</strong>      Strings类库提供以下服务处理字符串：</li>
+</ol>
+<p>l   用内置的String管理器，编辑操作string对象；</p>
+<p>l   处理动态的字符串序列</p>
+<p>&nbsp;</p>
+<p>OCC支持ASCII码(8bit)、Unicode字符UTF-8(8bit)、utf-16-UCS-2 (16bit)；内存管理使字符串对象使用起来比字符数组更简单，可以通过名柄处理，可以共享的。串类在TCollection包和NCollection中实现。</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>5.</strong>      Collections类库除了字符串，该包还包含动态大小数据集合类：</li>
+</ol>
+<p><em>【</em><strong><em>TCollection</em></strong><em>】、【</em><strong><em>TColStd package (Collections of Standard Objects component)</em></strong><em>】</em></p>
+<p><em>【</em><strong><em>The TColStd and TShort packages provide frequently used instantiations of generic classes</em></strong><em>】</em></p>
+<p>l   阵列：一维和纯二维，一般用于快速访问的一个项目，且是固定大小的数组；</p>
+<p>l   序列及列表可排序的非唯一对象集合；</p>
+<p>l   散列图：提供对成员项的快速存取；</p>
+<p>l   队列、堆栈；</p>
+<p>该类库也提供特定的针对序列、散列、堆栈的迭代器；</p>
+<p>集合容器是通用的，即每一种集合容器定义了一种结构和一些算法，可持有许多对象——通常这些对象不必从根类继承。这与C++模板相似。如果需要使用一个给定对象类型的集合容器，则必须对这个元素的指定类型进行实例化。一旦这个实例声明被编译，所有基于这个通用集合容器的函数都可以在集合容器对象中实现。</p>
+<p>如果在工程项目中你不需要CDL（在WOK下编辑CDL需要实例化所有通用集合（TCollection包）），应该好好利用NCollection中定义的集合，它包含以上描述的同样通用的集合定义，队在其种形式的C++模板中；因此实例化所有无额外支持的集合类型需要越过ANSI C++编译器。</p>
+<p>大多数集合是值语义的，意味着实例化一个集合后，它是真实存在的，并不是对它的一个句柄。</p>
+<p>标准对象的集合容器：TCollection:标准对象集合类库提供频繁使用的来自TCollection包的通用类的实例，字符串来自于TCollection包和基本几何；存在一些局限性：OCC通用类需要在CDL语言中编译，因此仅能在WOK中实例化。</p>
+<p>NCollection</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>6.</strong>      Math Utilities：Vectors and Matrices 向量与矩阵类库提供常用的数据算法【<strong><em>既有大小又有方向的量叫做向量</em></strong>】，如下：</li>
+</ol>
+<p>l   向量与矩阵的基本运算；</p>
+<p>l   计算特征值与特征向量的方矩阵；</p>
+<p>l   线性代数方程组的求解器；</p>
+<p>l   找到一个非线性方程组的根；</p>
+<p>l   找到一个或多个自变量函数的最小值算法；</p>
+<p>同时也提供相应的数据结构，以表示任何表达式、关系或函数用于数学计算，包括变量的分配。</p>
+<p>&nbsp;</p>
+<ol>
+<li><strong>7.</strong>      Primitive Geometric Types，【<strong><em>gp package is a STEP-compliant implementation of basic geometric and algebraic entities—gp包是基于STEP实现的一个基础几何和代数实体</em></strong>】这基本几何类型定义在基础Geometry包中，提供基本几何形状的描述如：点，向量、直线、圆、圆锥、平面及基本曲面；这些类型都是通过值来处理，非引用；通过坐标轴或坐标系，使几何图形在空间或者平面中进行定位以及几何变换的定义、应用（平移、旋转、对称、缩放、复合变换）。</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>1.2   <em>Modeling Data模型数据</em></p>
+<p>表现2D、3D几何模型的数据结构主要包含在四个类库中：2D几何（2D Geometry）、3D几何（3D Geometry）、几何工具（Geometry Utilities）、几何拓扑（Topology）。</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th><strong>项目</strong></th>
+<th><strong>目录名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>TKBRep</strong></td>
+<td>BRep</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BRepAdaptor</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepLprop</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepTools</td>
+<td>访问与处理抽像<strong>拓扑</strong>数据结构的方法；explore,   manipulate, 读、写BRep数据结构；</td>
+<td></td>
+</tr>
+<tr>
+<td>TopExp</td>
+<td>访问与处理抽像<strong>拓扑</strong>数据结构的方法；explore   and manipulate（操作）TopoDS中所描述的拓扑数据结构。</td>
+<td></td>
+</tr>
+<tr>
+<td>TopoDS</td>
+<td>OCC中使用的<strong>拓扑</strong>数据结构包；描述模型的类集合，建立纯拓扑的数据结构。</td>
+<td></td>
+</tr>
+<tr>
+<td>TopTools</td>
+<td>访问与处理抽像<strong>拓扑</strong>数据结构的方法；用在拓扑数据结构上的工具库</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKG2d</strong></td>
+<td>Adaptor2d</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>Geom2d</td>
+<td>描述简单几何对象的基本数据结构。用STEP实现二维几何对象；依据继承关系来组织类库；如：Geom2d_Ellipse inherit Geom2d_Conic<br><br>Geom2d_BezierCurve inherit Geom2d_BoundedCurve<br><br>Curve inherit Geom2d_Curve<br><br>Curves, points and vectors inherit Geom2d_Geometry</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dAdaptor</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dLProp</td>
+<td>二维曲线的本地属性；</td>
+<td></td>
+</tr>
+<tr>
+<td>GProp</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>LProp</td>
+<td>提供一个枚举用于标记二维曲线上的特征点</td>
+<td></td>
+</tr>
+<tr>
+<td>TColGeom2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopAbs</td>
+<td>OCC中使用的<strong>拓扑</strong>数据结构包；为拓扑驱动程序提供一些资源，包含描述基本拓扑概念的枚举，如形状、方向、状态等；同时也提供方法，管理这些枚举。</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKG3d</strong></td>
+<td>Adaptor3d</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>AdvApprox</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom</td>
+<td>描述简单几何对象的基本数据结构。用STEP实现三维几何对象；依据继承关系来组织类库；如：Geom2d_Geometry inherit Geom_ElementarySurface<br><br>Geom_BezierSurface inherit Geom_BoundedSurface<br><br>surfaces inherit Geom_Surface<br><br>Curves, points and vectors inherit Geom_Geometry</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomAdaptor</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomLProp</td>
+<td>三维曲线及曲面的本地属性；</td>
+<td></td>
+</tr>
+<tr>
+<td>LProp3d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TColGeom</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKGeomBase</strong></td>
+<td>AdvApp2Var</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>AppCont</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>AppDef</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>AppParCurves</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Approx</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BndLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>CPnts</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Extrema</td>
+<td>两个二维曲线、两个三维曲线、一个三维曲线与一个曲面以及两个曲面的极值计算；</td>
+<td></td>
+</tr>
+<tr>
+<td>FEmtool</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GC</td>
+<td>通过Direct Construction组件构造诸如（gp\Geom2d\Geom）的对象类型。但是前者实现了几何构造算法，用于转换构造器参数到每个对象的特殊数据结构。<br><br>它们提供了一组构造算法类；<br><br>gce_MakeCire:定义了八个，在圆的几何构造中遇到的问题。实现了八个相关的构造算法；<br><br>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>gce</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GCE2d</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GCPnts</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dConvert</td>
+<td>Geom2d包相关；<br><br>transformation Bezier-&gt;BSpline；<br><br>transformation BSpline -&gt;Bezier；</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomConvert</td>
+<td>Geom包相关；<br><br>BSpline、Bezier曲线，曲面的构造、转换等与之相关的算法；</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomLid</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomProjLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomTools</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Hermit</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntAna</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntAna2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ProjLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+<ol>
+<li>2D Gemoetry类库提供2D几何数据结构及拓扑方向。</li>
+</ol>
+<p>Gemo2D几何包提供通过引用及遵循STEP标准处理2D几何数据结构处理，这些对象被参数化，面向对象的，包括Bezier贝塞尔曲线、B样条曲线、offset curves偏移曲线，提供从基本几何类型（非面向对象，非参数化）与Gemo 2D 对象的转换功能。Geom2dLProp几何属性包允许诸如此的计算：二维曲线基于一个参数点的Derivative向量、二维曲线（正常或曲率）上基于一个参数点的切向量</p>
+<p>&nbsp;</p>
+<ol>
+<li>3D Gemoetry类库提供3D几何数据结构及拓扑方向。</li>
+</ol>
+<p>Gemo几何包提供通过引用及遵循STEP标准处理3D几何数据结构处理，这些对象被参数化，面向对象的，包括Bezier贝塞尔曲线、B样条曲面、offset curves偏移曲线及曲面，提供从基本几何类型（非面向对象，非参数化）与Gemo对象的转换功能。GeomLProp几何属性包允许诸如此的计算：二维曲线或曲面基于一个参数点的Derivative向量、二维曲线或曲面（正常或曲率）上基于一个参数点的切向量。</p>
+<p>&nbsp;</p>
+<ol>
+<li>Geometry Utilities  该类库提供标准的在二维及三维几何上的高级功能：</li>
+</ol>
+<p>l   几何算法的直接构造；</p>
+<p>l   一组点插值形成一条曲线；</p>
+<p>l   初等几何转换B样条曲线及曲面；</p>
+<p>l   2D或3D曲线上点的计算；</p>
+<p>l   两种几何的极值计算；</p>
+<p>&nbsp;</p>
+<ol>
+<li>Topology库可以建立抽象拓扑的数据结构。</li>
+</ol>
+<p>它定义了简单几何实体之间的关系，通过该方法可以利用简单实体的装配形成复杂的几何模型。由于一个内置的_非流形_non-manifold (or mixed-dimensional)_（混合维）_特性，可以建立混合模型（0维实体如点、1维实体如线、2维实体如面，3维实体如体积）。</p>
+<p>&nbsp;</p>
+<p>抽象的拓扑数据结构描述了一个基本的实体 -一个形状，可分为以下组件拓扑结构：</p>
+<ul>
+<li>l   Vertex顶点： 一种0维形状对应于几何中的点；</li>
+<li>l   edge边： 一种形状对应一条曲线,并在每个末端通过一个顶点来约束；</li>
+<li>l   wire线框：一个通过顶点互连的边的序列；</li>
+<li>l   face面：部分（二维）平面或者（三维）表面，被一个闭合线框约束；</li>
+<li>l   shell壳(qiao)：线框边界线的边连接的面的集合；</li>
+<li>l   solid实体：与一个壳绑定的三维空间的一部分；</li>
+<li>l   Compound solid复合实体：实体的集合；</li>
+</ul>
+<p>线框与实体可以是无限的也可以是关闭的；</p>
+<p>三角网格模型（<em>STL文件格式模型</em>）就是用一系列的小三角形平面来逼近原来的模型，该模型就类似于一个多面体。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>STL(stereolithography)文件格式是由美国3D Systems公司于1988年开发的，目前各类商用CAD软件均带有STL文件的输出功能，STL模型就是CAD模型进行三角网格化处理的结果。</p>
+<p>&nbsp;</p>
+<p>1.3   <em>Modeling Algorithms 一系列在模型中使用拓扑算法形成建模算法模块组，通过这些，可以找到几何算法，服务封装在以下类库中：</em></p>
+<p>n   Geometric Tools ：几何工具</p>
+<p>n   Topological Tools ：拓扑工具</p>
+<p>n   Construction of Primitives ：图元构造</p>
+<p>n   Boolean Operations ：布尔运算</p>
+<p>n   Fillets and Chamfers ：倒圆与倒角</p>
+<p>n   Offsets and Drafts ：偏移与拔模</p>
+<p>n   Features ：特征</p>
+<p>n   Hidden Line Removal：隐藏线去除</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th><strong>项目</strong></th>
+<th><strong>目录名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>TKBO</strong></td>
+<td>BooleanOperations</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BOP</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BOPTColStd</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BOPTools</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepAlgoAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntTools</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKBool</strong></td>
+<td>BRepAlgo</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BRepFill</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepProj</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopOpeBRep</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopOpeBRepBuild</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopOpeBRepDS</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopOpeBRepTool</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKFeat</strong></td>
+<td>BRepFeat</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>LocOpe</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKFillet</strong></td>
+<td>Blend</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BlendFunc</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepBlend</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepFilletAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ChFi2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ChFi3d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ChFiDS</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ChFiKPart</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>FilletSurf</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKGeomAlgo</td>
+<td>AppBlend</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>ApproxInt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>FairCurve</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GccAna</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GccEnt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GccInt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GccIter</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2DAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dGcc</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dHatch</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Geom2dInt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomFill</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomInt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>GeomPlate</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Hatch</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>HatchGen</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntCurve</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntCurveSurface</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Intf</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntImp</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntImpParGen</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntPatch</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntPolyh</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntRes2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntStart</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntSurf</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Law</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>LocalAnalysis</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>NLPlate</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Plate</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopClass</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopTrans</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKHLR</td>
+<td>Contap</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>HLRAlgo</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>HLRBRep</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>HLRTopoBRep</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Intrv</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopBas</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TopCnx</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKMesh</td>
+<td>BRepMesh</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>IntPoly</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MeshAlgo</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MeshDS</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MeshShape</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKOffset</td>
+<td>BiTgte</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BRepOffset</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepOffsetAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Draft</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKPrim</td>
+<td>BRepPrim</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BRepPrimAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepSweep</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Sweep</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKShHealing</td>
+<td>ShapeAlgo</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>ShapeAnalysis</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeBuild</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeConstruct</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeCustom</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeExtend</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeFix</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeProcess</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeProcessAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>ShapeUpgrade</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKTopAlgo</td>
+<td>Bisector</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>BRepApprox</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepBndLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepBuilderAPI</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepCheck</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepClass</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepClass3d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepExtrema</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepGProp</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepIntCurveSurface</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepLib</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepMAT2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>BRepTopAdaptor</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>IntCurvesFace</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MAT</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MAT2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>TKXMesh</td>
+<td>XBRepMesh</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<ol>
+<li>Geometric Tools提供算法有：</li>
+</ol>
+<p>l   计算两个交叉的二维曲线、曲面或三维的曲线、曲面；该组件用来计算2D或3D几何对象的交叉（二维曲线的交叉、二维曲线的自交叉、三维曲线与曲面的交叉、两个面个交叉）；</p>
+<p>l   二维和三维曲线的投影，表面和表面上的三维曲线的投影（二维曲线上的二维点的投影、三维曲线或曲面上的三维点的投影、曲面上的三维曲线的投影、从三维到二维参数空间的平面曲线变换、二维几何对象在三维几何空间中的位置）；</p>
+<p>l   众多二维圆弧或数值型直线或者与其它曲线的几何约束的构造算法（圆的半径、直线与直线的角度、直线或圆与一个曲线相切、点是否在一条直线或一个圆弧上等）；众多曲线与曲面的构造算法；</p>
+<p>l   通过插值拟合构建曲线和曲面；</p>
+<p>OCC也提供一项服务被叫做SSP（基于离散点的曲面重构） Surfaces from Scattered Points (SSP)..，算法首先构造一个初始的B样曲面，再查找其满足条件的变形（有限元法）；利用优化的算法，可以利用500000点来构造出一个曲面；</p>
+<p>&nbsp;</p>
+<ol>
+<li>Topological Tools 拓扑工具包，该类库提供以下算法：</li>
+</ol>
+<p>l   几何形状的细化；</p>
+<p>l   形状验证；</p>
+<p>l   确定形状的局部属性；</p>
+<p>l   确定形状的全局属性；</p>
+<p>l   进行几何变换；</p>
+<p>l   查找平面的边界；</p>
+<p>l   转换形状到NURBS（NURBS是非均匀有理样条曲线：NURBS是一种非常优秀的建模方式，在高级三维软件当中都支持这种建模方式。NURBS能够比传统的网格建模方式更好地控制物体表面的曲线度，从而能够创建出更逼真、生动的造型。）几何；</p>
+<p>为了在模型数据模块的拓扑库上定义拓扑数据结构，还提供一个完整的BREP数据结构（边界表示[ Boundary Representation]也称为BR表示或者BREP表示，它是几何造型中最成熟、无二义的表示法）。</p>
+<p>&nbsp;</p>
+<ol>
+<li>Construction of Primitives，该类库提供建立基本图元的算法（棱、柱、锥、球）；</li>
+<li>Boolean Operations，该类库提供高质量的算法进行布尔运算，利用交、差、并、补计算来演示布尔操作创建新的实体；</li>
+<li>Fillets and Chamfers过渡特征的构建</li>
+</ol>
+<p>倒圆角特征(Fillets)</p>
+<p>倒平角特征(Chamfers)</p>
+<p>倒圆角特征和倒平角特征,习惯上被称为”倒圆”和”倒角”，它们建于两个面相交形成的棱边上,或多个面相交形成的顶点上，以修剪的形式而生成特征,即最终要将其参照棱线或顶点删除掉。在创建倒圆和倒角特征时,CAD系统会根据选择的棱线或顶点,在面集合中找出其包含面,在面的线集合或点集合中,找出相应的参照线或顶点,而表面隶属于哪些特征可由系统确定。</p>
+<p>&nbsp;</p>
+<ol>
+<li>Offsets，Drafts，Sewing and Sweeps (偏移、拔模、缝合、扫掠)</li>
+</ol>
+<p>l   创建偏移形状和他们的变体例如：</p>
+<p>Hollowing镂空、Shelling抽空、Lofting放样；</p>
+<p>l   利用拔模角来创建锥形；</p>
+<p>l   缝合；</p>
+<p>l   扫掠；</p>
+<p>&nbsp;</p>
+<p>扫掠：是CAD中的一项建模工具 是将二维图形转为三维图形的建模方法，是将一个二维形体对象作为沿某个路径的剖面，而形成的三维图形。</p>
+<p>拔模：顾名思义 就是模具做好之后 把它拔出来，如果拔出的作用力面 与力的方向是平行的，因为摩擦力大而难以拔出，同时会对模具表面造成损伤，所以机械直壁一般都不是垂直的，俗称拔模角度。拔模特征的创建功能,可方便地使体特征的任一表面绕其一棱边,顺时针或逆时针转动某一角度,同时保持拓扑关系不变。</p>
+<p>&nbsp;</p>
+<ol>
+<li>Features（<em>特征建模？</em>）类库提供算法用于建立形状上的形态（Form）及机械(Mechanical)特征：</li>
+</ol>
+<p>l   形态特征：柱形、棱形、旋转特征（Cylinders 、Draft prisms 、Prisms 、Revolved features 、Pipes ）</p>
+<p>l   机械特征：筋（肋骨）（Ribs、Grooves）</p>
+<p>&nbsp;</p>
+<ol>
+<li>Hidden Line Removal：提供算法来定义线条构成的形状隐藏在一个给定的投射中。这些线可显示或隐藏的。服务对形状自身或者它的简化多面体起作用。</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><em>1.4   Visualization</em></p>
+<p>OCC平台中，可视化是建立在建模数据及描述图形的数据结构之上的,主要实现对实体对象的显示和选取操作。显示服务是独立于数据结构的，显示服务的表示由合适的算法产生。</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th><strong>项目</strong></th>
+<th><strong>目录名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>TKMeshVS</strong></td>
+<td>MeshVS</td>
+<td>网格显示服务，对OCC三维显示能力的扩展</td>
+</tr>
+<tr>
+<td><strong>TKNIS</strong></td>
+<td>NIS</td>
+<td>新的交互服务（New Interactive Services），它提供的API与AIS类似，但有一些重要的不同或改进；<br><br>该包是一个实验性的，有很多AIS的特性，它并不支持，比如：拓扑显示，本地环境（上下文）等。可用于创建高效的基于OPENGL的显示组件，但并不能取代AIS。可以认为它是对传统AIS的一个补充，更好的适合某些特殊任务。</td>
+</tr>
+<tr>
+<td><strong>TKOpenGL</strong></td>
+<td>OpenGL</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKService</strong></td>
+<td>AlienImage</td>
+<td>导入图片，从其它格式到OCC所支持的格式。</td>
+</tr>
+<tr>
+<td>Aspect</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>CGM</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Image</td>
+<td>提供伪彩色与彩色图像的定义，图像的一组关键功能；</td>
+<td></td>
+</tr>
+<tr>
+<td>InterfaceGraphic</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>MFT</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>PlotMgt</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>PS</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>SelectBasics</td>
+<td>sensitive primitive原型的定义；在视窗中一个可选择的实体；<br><br>sensitive primitive原型所有者的定义；这个实体所原始实体与在视窗中可选择的应用程序实体相关系</td>
+<td></td>
+</tr>
+<tr>
+<td>TColQuantity</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Viewer</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>WNT</td>
+<td>提供通用的WINDOWS NT的图像接口</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKV2d</strong></td>
+<td>AIS2D</td>
+<td>提供一些交互服务用于二维显示；提供选择与计算尺寸的方法；管理可视化的属性、提供方法加强可视化及可选择机制；交互对象依赖于可视化与可选择机制，在二维的VIEWER中来显示对象；控制显示及临时属性；</td>
+</tr>
+<tr>
+<td>GGraphic2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic2d</td>
+<td>在视窗中创建二维图像对象；每一个对象称为一个图像对象，是由一些基本原件组成并在视窗中创建。每一个基本原件是一个类而且包含属性。每一个基本原件有自己的绘制方法。视窗负责管理一组图像对象。绘图器负责构造。</td>
+<td></td>
+</tr>
+<tr>
+<td>Pre2d</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td>Select2D</td>
+<td>定义二维原件的基本类库，如：点，线、圆，继承于SensitiveEntity   from SelectBasics，且用于表现二维可选对象。</td>
+<td></td>
+</tr>
+<tr>
+<td>V2D</td>
+<td>提供了一些服务，需要在窗口系统中建立一个二维的mono-view   viewer视窗</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKV3d</strong></td>
+<td>AIS</td>
+<td>应用交互服务（Application Interactive   Services (AIS)），提供方法创建应用程序GUI VIEWER之间的连接，用于管理选择与显示。定位于建模环境、VIEW以及选择。必须有几种定义的不同的可选择、可显示的对象。必须也是可交互的，也就是说，连接基本参考几何与图像显示；这些实体被称为交互对象，被分成以下四种类型：the Datum\the Relation\ the Object\ None。<br><br>the Datum:元素的构造如：线，圆、点、trihedra, plane trihedra、平面、轴线等（tri—三，hedra—多面体，异面体）。<br><br>the Relation：由一个或者多个交互形状与相应的几何关系的约束构成；<br><br>the Object：包括拓扑形状以及几何之间的连接<br><br>None：为了不排除对象，告诉应用程序，更深入分析，直到在其产生的对象（in its generation）中找到一个可接受的对象定义</td>
+</tr>
+<tr>
+<td>DsgPrs</td>
+<td>尺寸、关系及三面体的显示工具。</td>
+<td></td>
+</tr>
+<tr>
+<td>Graphic3d</td>
+<td>在视窗中创建三维图像对象；这些对象称为结构，由一组原件及属性组成。这个组是一个最小的可编辑的结构元素。这个结构可被显示、擦出、高亮。可以对它应用变换。结构通过变换来构成，并连接形成一个继承体系。VIEWER可执行全局的结构操作处理。</td>
+<td></td>
+</tr>
+<tr>
+<td>Prs3d</td>
+<td>提供通用几何及拓扑的标准显示工具；<br><br>显示对象；<br><br>属性管理员控制如何显示对象，如颜色、宽度、线的类型（generic   objects）；<br><br>通用算法提供默认对象的基本设置如：点，曲线、曲面、形状等<br><br>一个根对象提供抽象的框架，对于DsgPrs包中定义的工作；</td>
+<td></td>
+</tr>
+<tr>
+<td>PrsMgr</td>
+<td>提供一个低级别的服务，仅当您不使用AIS提供的服务时，才使用它。<br><br>支持一个显示对象的图像结构；当需要时进行重新计算（移动、改变颜色等）；<br><br>定义显示对象的显示模式；就AIS_Shape而言，确定是否对象以（线框0、阴影1）来显示。<br><br>每一个新的交互对象必须由它定义自己的显示模式。</td>
+<td></td>
+</tr>
+<tr>
+<td>Select3D</td>
+<td>定义标准的三维原件如：点，曲线，面<br><br>在二维图像选择空间中the bounding boxes的复原。<br><br>三维-二维的投影器</td>
+<td></td>
+</tr>
+<tr>
+<td>SelectMgr</td>
+<td>提供一个低级服务，仅当您不使用AIS提供的服务时，才使用（SelectMgr_SelectionManager and SelectMgr_ViewerSelector）。<br><br>它通过以下服务来管理进程的动态选择：<br><br>激活与关闭交互对象选择模式；<br><br>添加与移除视察选择器；<br><br>定义抽象的过滤类；</td>
+<td></td>
+</tr>
+<tr>
+<td>StdPrs</td>
+<td>提供对特殊几何及拓扑的标准显示工具；这些类是特殊几何及拓扑，在务种显示模式下显示的定义，如：线框、阴影、去隐藏线等；</td>
+<td></td>
+</tr>
+<tr>
+<td>StdSelect</td>
+<td>定义拓扑几何的选择方式；定义几种过滤类；二维与三维的视窗选择器（viewer   selectors）。</td>
+<td></td>
+</tr>
+<tr>
+<td>V3d</td>
+<td>包含了一组三维显示（3D Viewer）的命令与服务。控制场景及显示模式。这个包与Visual3D是互补的。</td>
+<td></td>
+</tr>
+<tr>
+<td>Visual3d</td>
+<td>提供一组对三维视窗需要实现指令的类，视窗来管理场景和光源。</td>
+<td></td>
+</tr>
+<tr>
+<td>Voxel</td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+<ol>
+<li>Services Common to 2D and 3D通用二维与三维服务：该库提供了通用的二维与三维数据结构并分别通过不同的Viewer去处理。</li>
+</ol>
+<p>3D Graphics:</p>
+<p>运行在OPENGL图像平台的基础上；</p>
+<p>支持对图元（折线、带孔或无孔的平面多边形、文本以及标志控制属性：颜色、透明度、反射、线型、线宽、字体等）进行三维操作，这些图元可以在三维视图中进行显示、绽放、旋转等操作；</p>
+<p>2D Graphics:</p>
+<p>支持对图元（直线、线段、折线、文本以及标志控制属性：颜色、线型、线宽、字体等）进行二维操作，这些图元可以在二维视图中进行显示、绽放、旋转等操作；</p>
+<p>以PostScript, HPGL2, and CGM格式输出，同时也支持xwd,gif,bmp格式的图片。</p>
+<p>在二维，OCC提供了完整的国际化，中文与日文的字符文本均可以在绘图仪上输入输出打印。</p>
+<p>&nbsp;</p>
+<ol>
+<li>3D Visualization 三维可视化类库提供了3D选择的数据结构及3D显示的数据结构；通过AIS（Application Interactive Services）提供三维的显示与选择；该包是一个高级接口，封装了底层的显示选择服务；AIS扩展了标准3D选择属性、显示管理以及显示属性的基础功能，并在GUI Viewer中进行管理；主要包括有：</li>
+</ol>
+<p>l   交互上下文：</p>
+<p>引导实体的选取和可视化的中央控制单元就是交互环境；</p>
+<p>AIS有两种可操作环境模式；默认中性点（neutral point）类型很容易可视化及选择实体交互对象，这些对象都装载在AIS的上下文中；打开当前环境的方式是为临时选取作准备的，这样做就不会干扰在Neutral Point中的选取了。</p>
+<p>l   交互对象：</p>
+<p>在AIS Viewer中可显示、可选择的对象称之为实体对象，是基本几何模型与AIS图形显示的桥梁，可以使用OCC已经实现的预定义的标准交互对象的功能函数，也可以自己实现一套交互对象，我们只需要遵守一定的规定和协议就可以利用它来执行自定义的交互对象类。</p>
+<p>l   图形属性管理器：</p>
+<p>图形属性管理器，或AIS画图引擎，存储具体交互对象或受交互环境控制的交互对象的图形属性。</p>
+<p>交互对象本身来说好像就是具体的图形属性（如可视化模式、色彩、材质等），交互环境中有一个绘图器drawer在默认状态下是有效的，用它来对对象的进行控制。当交互对象被可视化时，图形属性就会要求自身的绘图器来检查在当前环境下是否有效。</p>
+<p>l   选择过滤器：</p>
+<p>在选取操作时对需要选取的实体进行过滤是非常必要的，可以对选择过滤器的动态检测环境进行扩展、完善，以达到想要实现的效果。也可以自己编写过滤器并装载到交互环境中。</p>
+<ol>
+<li>2D Visualization 提供二维显示数据结构及二维选择数据结构。</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><em>1.5   Data Exchange</em></p>
+<p>使用OCC作为应用程序的基础，同时使用其它的CAD系统，数据交换在其中扮演重要角色。它是具有多层软件环境的开源技术，处理外部数据并有良好的集成。它涵盖了基于OCC应用程序的交换的需要，并不拘于外部数据质量或要求。数据交换是以模块化的方式组织的，如下所述：</p>
+<p>OCC提供连接器（工具），在基于OCC的应用软件数据转换成其它各种CAD软件的数据，保持数据有良好的互通性。</p>
+<p>交换功能是依据各种不同的CAD或PDM等软件包所使用的标准(IGES, STEP)，或通过专有格式直接连接处理，或调用run-time 库访问外部数据。</p>
+<p>利用国际标准，把CAD 系统中的模型通过各自的数据转换接口将其内部的模型数据信息转换为符合所选标准的中性文档描述文件，然后通过系统的数据转换接口把这些中性文档的数据读入系统。因此只要异构的CAD 系统支持同一种数据交换标准，就可以实现异构CAD 系统之间通过本平台进行协同。</p>
+<p>&nbsp;<br>                            数据交换模型</p>
+<p>Open CASCADE 数据交换模块提供了大多数标准三维CAD 模型格式的读写工具类，包括STEP、IGES、BREP等。</p>
+<p>&nbsp;</p>
+<table>
+<thead>
+<tr>
+<th><strong>项目</strong></th>
+<th><strong>目录名</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BinXCAFPlugin</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKBinXCAF</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKIGES</strong></td>
+<td>&nbsp;</td>
+<td>IGES组件读取IGES文件并转换到OCC模型。目前支IGES 5.3版本，<br><br>转换涉及到一个实体、一组实体或整个文件。<br><br>转换之前，需要设置一组参数去管理转换进程。<br><br>也可以在转换之前，检查文件的一致性。<br><br>同时也支持把OCC模型转换到IGES文件。其它的数据类型如：颜色与名称可以通过独立的工具（IGESCAFControl_Reader   and IGESCAFControl_Writer）来进行读写。<br><br>一个IGES模型是已经被加载到内存的IGES文件；<br><br>一个IGES实体就是在IGES （IGES normal sense）中的一个实体；<br><br>一个根实体就是任何已给出类型的最高级别实体（如：type 144   for surfaces and type 186 for solids. Roots are not referenced by other   entities）</td>
+</tr>
+<tr>
+<td><strong>TKSTEP</strong></td>
+<td>&nbsp;</td>
+<td>STEP组件可以通过STEP应用协议214（类似与版本）读取STEP文件，转换到OCC模型。同时也支持STEP203。<br><br>基础转换器可读写几何、拓扑STEP数据以及组配结构。<br><br>转换涉及到一个实体、一组实体或整个文件；<br><br>其它数据类型如：颜色、验证属性、层、名称以及结构的组配可通过独立的工具（STEPCAFControl_Reader and STEPCAFControl_Writer）进行读写。<br><br>STEP组件也可以转换OCC模型到STEP文件。<br><br>该组件遵循STEP 应用协议214-2级生成STEP文件。当输出一个STEP格式时，需要选择转换模式，可通过STEPControl_STEPModelType来实现。<br><br>一个STEP模型是已经被加载到内存的STEP文件；<br><br>所有对形状的引用都指OCC形状，除非有其它明确的说明；<br><br>一个根实体就是任何已给出类型的最高级别实体(如：an entity that is not referenced by any other one)</td>
+</tr>
+<tr>
+<td><strong>TKSTEP209</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKSTEPAttr</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKSTEPBase</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKSTL</strong></td>
+<td>&nbsp;</td>
+<td>STL组件转换OCC形状到STL文件，STL广泛使用于快速原型。<br><br>STL文件仅包括：通过网格结构描述实体（Solids）、写OCC形状必须是实体（Solids），实体的部分或者一个正确定位的封闭的壳。<br><br>面集合或者未封闭的壳可能也可以转换成STL格式，但可视化时或许会有错误的！</td>
+</tr>
+<tr>
+<td><strong>TKVRML</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKXCAF</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKXCAFSchema</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKXDEIGES</strong></td>
+<td>&nbsp;</td>
+<td>Extended data exchange (xde)：扩展数据交换：它允许你修改交换的范围，作为增加了几何（“BREP”）数据，从而提高了与外部软件的互通性。</td>
+</tr>
+<tr>
+<td><strong>TKXDESTEP</strong></td>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TKXmlXCAF</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>TKXSBase</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>XCAFPlugin</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>XmlXCAFPlugin</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+<ol>
+<li>Standardized Data Exchange:标准化的数据交换</li>
+</ol>
+<p>标准化的数据包括：STEP、IGES、STL、VRML</p>
+<p>&nbsp;</p>
+<ol>
+<li>Proprietary Data Exchange：专用的数据交换</li>
+</ol>
+<p>连接器（可选作为独立的组件）提供与其它的CAD软件数据进行直接映射和数据适配（利用几何复原）：</p>
+<ul>
+<li>l   Euclid-3</li>
+<li>l   Catia</li>
+<li>l   ACIS</li>
+<li>l   Parasolid</li>
+<li>l   DXF</li>
+</ul>
+<p>此连接器同STEP及IGES的数据交换具有相同的架构。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>IGES：基本图形交换规范（The Initial Graphics Exchange Specification），1980年美国国家标准局（NBS）主持成立了由波音公司和通用电气公司参加的技术委员会，制订了基本图形交换规范IGES，并于1981年正式成为美国国家标准。作为较早颁布的标准，IGES被许多CAD&#x2F;CAM系统接受，成为应用最广泛的数据交换标准。</p>
+<p>&nbsp;</p>
+<p>STEP：产品模型数据交换标准（STandard Exchange of Product data model），1988年ISO制定的描述整个产品生命周期内产品信息的标准，它提供了一种不依赖具体系统的中性机制，旨在实现产品数据的交换和共享。这种描述的性质使得它不仅适合于交换文件，也适合于作为执行和分享产品数据库和存档的基础。发达国家已经把STEP标准推向了工业应用。它的应用显著降低了产品生命周期内的信息交换成本，提高了产品研发效率，成为制造业进行国际合作、参与国际竞争的重要基础标准，是保持企业竞争力的重要工具。</p>
+<p>&nbsp;</p>
+<p>STL ：&#x3D; STL文件，一种3D模型文件格式STL（STereo Lithography的缩写）</p>
+<p>STL 文件格式是由3D SYSTEM 公司于1988 年制定的一个接口协议，是一种为快速原型制造技术服务的三维图形文件格式。STL 文件由多个三角形面片的定义组成，每个三角形面片的定义包括三角形各个定点的三维坐标及三角形面片的法矢量。三角形顶点的排列顺序遵循右手法则。 STL 文件有2 种类型：ASC域格式和二进制格式ASC域格式。 　　STL模型是以三角形集合来表示物体外轮廓形状的几何模型。</p>
+<p>&nbsp;</p>
+<p>VRML：（Virtual Reality Modeling Language）即虚拟现实建模语言。是一种用于建立真实世界的场景模型或人们虚构的三维世界的场景建模语言，也具有平台无关性。是目前Internet上基于 WWW的三维互动网站制作的主流语言。 VRML是虚拟现实造型语言（Virtual Reality Modeling Language）的简称，本质上是一种面向web，面向对象的三维造型语言，而且它是一种解释性语言。VRML的对象称为结点，子结点的集合可以构成复杂的景物。结点可以通过实例得到复用，对它们赋以名字，进行定义后，即可建立动态的VR（虚拟世界）。</p>
+<p>&nbsp;</p>
+<p>1.6   <em>Application framework应用框架（OCAF）</em>：</p>
+<p><em>OCAF（ Open CASCADE Application Framework），Open CASCADE 不仅为用户提供了三维建模、几何体复杂运算、可视化模块等相关类库，还为用户提供了OCAF，OCAF提供了一个结构化的解决方案和应用数据处理，是一种内HE级的管理 ，它是一种基于Open CASCADE 的RAD（Rapid Application Development，快速开发工具）框架，为用户（即开发人员）提供了一个快速开发的手段。</em></p>
+<p><em>OCAF 对于Open CASCADE 是一个的辅助工具，在算法、拓扑或几何建模的过程中，OCAF 能处理这些类库中的任何数据和算法，这个框架还可以用于组织、保存应用数据。通过使用OCAF，应用程序设计者可以专注于功能以及某些特别的算法， 值得一提的是实现“ 撤销&#x2F; 重做（Undo-Redo）”命令以及“保存应用程序数据”命令，避免了很多底层建模的问题。</em></p>
+<p>&nbsp;</p>
+<p>应用程序框架就是使用一个关联（相关性）引擎，简化对CAD应用系统的开发。</p>
+<ul>
+<li>通过属性机制处理应用程序数据；</li>
+<li>依据开发的需要来组织属性；</li>
+<li>由应用程序来进行多文档管理；</li>
+<li>对于CAD&#x2F;CAM应用程序，已实现、可使用的通用的数据结构属性；</li>
+<li>数据存储服务；</li>
+<li>已实现撤销&#x2F;重做功能；</li>
+</ul>
+<p>通过使用OCAF，它来处理应用程序结构，应用程序设计者可以专注于特定应用数据的处理及GUIS的开发工作。</p>
+<p>OCAF与其它CAD框架不同就在于应用数据的组织。在OCAF中，数据结构不是shape-driven .而是reference-key driven.在这种方法中，如几何数据、颜色、材料等属性都附加于更深的结构不变的模型上。OCAF负责把这些属性组织、嵌入文档。</p>
+<p>OCAF文档由OCAF的应用程序来管理。</p>
+<p>&nbsp;</p>
+<p>数据存储服务：</p>
+<p>通常来讲，OCC提供的所有数据结构都是一种运行时结构，换句话说，是一种短暂的不稳定的数据，只有在应用程序运行时才存在并不进行永久存储。但，数据存储模块具有存储数据到存储设备上的功能，即持久化数据。数据存储服务提供持久化数据的类库和转换功能，就是为了把短暂不稳定的数据转换成永久的数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/01/31/opencascade-%E7%AE%80%E4%BB%8B/" data-id="cmbc76opc0022kmq49wy8g4wh" data-title="opencascade 简介" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          C++ Primer 5th 1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/01/31/curriculum-vitae/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">curriculum vitae</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

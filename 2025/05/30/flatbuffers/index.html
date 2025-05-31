@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>flatbuffers | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1. 简介FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语言接口的序列化工具库。实现了与 Protocal Buffers 类似的序列化格式。主要由 Wouter van Oortmerssen 编写，并由 Google 开源。Oortmerssen 最初为 Android 游戏和注重性能的应用而开发了 FlatBuffers，现在它具有 C ++、C＃、C、Go、Java、P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flatbuffers">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/05/30/flatbuffers/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="1. 简介FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语言接口的序列化工具库。实现了与 Protocal Buffers 类似的序列化格式。主要由 Wouter van Oortmerssen 编写，并由 Google 开源。Oortmerssen 最初为 Android 游戏和注重性能的应用而开发了 FlatBuffers，现在它具有 C ++、C＃、C、Go、Java、P">
+<meta property="og:locale">
+<meta property="og:image" content="https://yingjuhan.github.io/Hexo-Blog/root_table.png">
+<meta property="article:published_time" content="2025-05-30T03:57:01.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.134Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="file io">
+<meta property="article:tag" content="buffer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yingjuhan.github.io/Hexo-Blog/root_table.png">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-flatbuffers" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/05/30/flatbuffers/" class="article-date">
+  <time class="dt-published" datetime="2025-05-30T03:57:01.000Z" itemprop="datePublished">2025-05-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/IO/">IO</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      flatbuffers
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><p>FlatBuffers 是一个开源的、跨平台的、高效的、提供了多种语言接口的序列化工具库。实现了与 Protocal Buffers 类似的序列化格式。主要由 Wouter van Oortmerssen 编写，并由 Google 开源。Oortmerssen 最初为 Android 游戏和注重性能的应用而开发了 FlatBuffers，现在它具有 C ++、C＃、C、Go、Java、PHP、Python 和 JavaScript 的接口。</p>
+<h1 id="2-FlatBuffers-Scheme"><a href="#2-FlatBuffers-Scheme" class="headerlink" title="2. FlatBuffers Scheme"></a>2. FlatBuffers Scheme</h1><p>FlatBuffers 通过 Scheme 文件定义数据结构，Schema 定义与其他框架使用的IDL(Interface description language)语言类似简单易懂，FlatBuffers 的 Scheme 是一种类 C 的语言（尽管 FlatBuffers 有自己的接口定义语言 Scheme 来定义要与之序列化的数据，但它也支持 Protocol Buffers 中的 .proto 格式）。下面以官方 Tutorial 中的 monster.fbs 为例进行说明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example IDL file for our monster&#x27;s schema.</span></span><br><span class="line">namespace MyGame.Sample;</span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Color</span>:</span>byte &#123; Red = <span class="number">0</span>, Green, Blue = <span class="number">2</span> &#125;</span><br><span class="line"><span class="keyword">union</span> Equipment &#123; Weapon &#125; <span class="comment">// Optionally add more tables.</span></span><br><span class="line"><span class="keyword">struct</span> Vec3 &#123;</span><br><span class="line">  x:<span class="type">float</span>;</span><br><span class="line">  y:<span class="type">float</span>;</span><br><span class="line">  z:<span class="type">float</span>;</span><br><span class="line">&#125;</span><br><span class="line">table Monster &#123;</span><br><span class="line">  pos:Vec3;</span><br><span class="line">  mana:<span class="type">short</span> = <span class="number">150</span>;</span><br><span class="line">  hp:<span class="type">short</span> = <span class="number">100</span>;</span><br><span class="line">  name:<span class="built_in">string</span>;</span><br><span class="line">  friendly:<span class="type">bool</span> = <span class="literal">false</span> (deprecated);</span><br><span class="line">  inventory:[ubyte];</span><br><span class="line">  color:Color = Blue;</span><br><span class="line">  weapons:[Weapon];</span><br><span class="line">  equipped:Equipment;</span><br><span class="line">  path:[Vec3];</span><br><span class="line">&#125;</span><br><span class="line">table Weapon &#123;</span><br><span class="line">  name:<span class="built_in">string</span>;</span><br><span class="line">  damage:<span class="type">short</span>;</span><br><span class="line">&#125;</span><br><span class="line">root_type Monster;</span><br></pre></td></tr></table></figure>
+
+<p>namespace MyGame.Sample;</p>
+<p>namespace 定义命名空间，可以定义嵌套的命名空间，用 . 分割。</p>
+<p>enum Color:byte { Red &#x3D; 0, Green, Blue &#x3D; 2 };</p>
+<p>enum 定义枚举类型。和常规的枚举类稍有不同的地方是可以定义类型。比如这里的 Color 是 byte 类型。enum 字段只能新增，不能废弃。</p>
+<p>union Equipment {Weapon} &#x2F;&#x2F; Optionally add more tables</p>
+<p>union 类似 C&#x2F;C++ 中的概念，一个 union 中可以放置多种类型，共同使用一个内存区域。这里的使用是互斥的，即这块内存区域只能由其中一种类型使用。相对 struct 来说比较节省内存。union 跟 enum 比较类似，但是 union 包含的是 table，enum 包含的是 scalar 或者 struct。union 也只能作为 table 的一部分，不能作 root type。</p>
+<p>struct Vect3{ x : float; y : float; z : float;};</p>
+<p>struct 所有字段都是必填的，因此没有默认值。字段也不能添加或者废弃，且只能包含标量或者其他 struct。struct 主要用于数据结构不会发生改变的场景，相对 table 使用更少的内存，lookup 的时候速度更快（struct 保存在父 table 中，不需要使用 vtable）。</p>
+<p>table Monster{};</p>
+<p>table 是在 FlatBuffers 中定义对象的主要方式，由一个名称（这里是 Monster）和一个字段列表组成。可以包含上面定义的所有类型。每个字段（Field）包括名称、类型和默认值三部分；每个字段都有默认值，如果没有明确写出则默认为 0 或者 null。每个字段都不是必须的，可以为每个对象选择要省略的字段，这是 FlatBuffers 向前和向后兼容的机制。</p>
+<p>root_type Monster;</p>
+<p>用于指定序列化后的数据的 root table。<br><img src="/Hexo-Blog/root_table.png" alt="logo"><br>Scheme 设计需要特别注意的：</p>
+<p>新字段只能加在 table 的后面。旧代码会忽略这个字段，仍然可以正常执行。新代码读取旧的数据，会取到新增字段的默认值。<br>即使字段不再使用了也不能从 Scheme 中删除。可以标记为 deprecated，在生成代码的时候不会生成该字段的访问器。<br>如果需要嵌套的 vector，可以将 vector 包装在 table 中。string 对于其他编码可以使用 [byte] 或者 [ubyte] 支持。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/05/30/flatbuffers/" data-id="cmbc76opc0020kmq4cos8ajav" data-title="flatbuffers" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">MSVC与MinGW</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

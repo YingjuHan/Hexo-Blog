@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++ Primer 5th 4 | Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第四章 表达式表达式基础 运算对象转换：小整数类型会被提升为较大的整数类型 重载运算符：当运算符作用在类类型的运算对象时，用户可以自行定义其含义。 左值和右值： C中原意：左值可以在表达式左边，右值不能。 C++：当一个对象被用作右值的时候，用的是对象的值（内容）； 被用做左值时，用的是对象的身份（在内存中的位置）。   求值顺序：int i &#x3D; f1() + f2() 先计算f1() + f2(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Primer 5th 4">
+<meta property="og:url" content="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-4/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="第四章 表达式表达式基础 运算对象转换：小整数类型会被提升为较大的整数类型 重载运算符：当运算符作用在类类型的运算对象时，用户可以自行定义其含义。 左值和右值： C中原意：左值可以在表达式左边，右值不能。 C++：当一个对象被用作右值的时候，用的是对象的值（内容）； 被用做左值时，用的是对象的身份（在内存中的位置）。   求值顺序：int i &#x3D; f1() + f2() 先计算f1() + f2(">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-02-02T13:59:46.000Z">
+<meta property="article:modified_time" content="2025-05-31T12:17:51.132Z">
+<meta property="article:author" content="YingjuHan">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/Hexo-Blog/atom.xml" title="Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/Hexo-Blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/Hexo-Blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/Hexo-Blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Hexo-Blog/" id="logo">Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/">Home</a>
+        
+          <a class="main-nav-link" href="/Hexo-Blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/Hexo-Blog/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yingjuhan.github.io/Hexo-Blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-C-Primer-5th-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-4/" class="article-date">
+  <time class="dt-published" datetime="2025-02-02T13:59:46.000Z" itemprop="datePublished">2025-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++ Primer 5th 4
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="第四章-表达式"><a href="#第四章-表达式" class="headerlink" title="第四章 表达式"></a>第四章 表达式</h1><h2 id="表达式基础"><a href="#表达式基础" class="headerlink" title="表达式基础"></a>表达式基础</h2><ul>
+<li><strong>运算对象转换</strong>：小整数类型会被提升为较大的整数类型</li>
+<li><strong>重载运算符</strong>：当运算符作用在类类型的运算对象时，用户可以自行定义其含义。</li>
+<li><strong>左值和右值</strong>：<ul>
+<li>C中原意：左值<strong>可以</strong>在表达式左边，右值不能。</li>
+<li><code>C++</code>：当一个对象被用作<strong>右值</strong>的时候，用的是对象的<strong>值</strong>（内容）；</li>
+<li>被用做<strong>左值</strong>时，用的是对象的<strong>身份</strong>（在内存中的位置）。</li>
+</ul>
+</li>
+<li><strong>求值顺序</strong>：<code>int i = f1() + f2()</code><ul>
+<li>先计算<code>f1() + f2()</code>,再计算<code>int i = f1() + f2()</code>。但是f1和f2的计算<strong>先后不确定</strong></li>
+<li>但是，如果f1、f2都对同一对象进行了修改，因为顺序不确定，所以会编译出错，显示未定义</li>
+</ul>
+</li>
+</ul>
+<h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><ul>
+<li><strong>溢出</strong>：当计算的结果超出该类型所能表示的范围时就会产生溢出。</li>
+<li><strong>bool类型不应该参与计算</strong><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> b=<span class="literal">true</span>;</span><br><span class="line"><span class="type">bool</span> b2=-b;   <span class="comment">//仍然为true</span></span><br><span class="line"><span class="comment">//b为true，提升为对应int=1，-b=-1</span></span><br><span class="line"><span class="comment">//b2=-1≠0，所以b2仍未true</span></span><br></pre></td></tr></table></figure></li>
+<li>取余运算m%n，结果符号与m相同</li>
+</ul>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><ul>
+<li><strong>短路求值</strong>：逻辑与运算符和逻辑或运算符都是先求左侧运算对象的值再求右侧运算对象的值，当且仅当左侧运算对象无法确定表达式的结果时才会计算右侧运算对象的值。<strong>先左再右</strong></li>
+<li>小技巧，声明为引用类型可以避免对元素的拷贝，如下，如string特别大时可以节省大量时间。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;string&gt; text;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span> &amp;s: text)&#123;</span><br><span class="line">  cout&lt;&lt;s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><ul>
+<li>赋值运算的<strong>返回结果时它的左侧运算对象</strong>，且是一个左值。类型也就是左侧对象的类型。</li>
+<li>如果赋值运算的左右侧运算对象类型不同，则右侧运算对象将转换成左侧运算对象的类型。</li>
+<li>赋值运算符满足<strong>右结合律</strong>，这点和其他二元运算符不一样。 <code>ival = jval = 0;</code>等价于<code>ival = (jval = 0);</code></li>
+<li>赋值运算优先级比较低，使用其当条件时应该加括号。</li>
+<li>复合赋值运算符，<strong>复合运算符只求值一次</strong>，普通运算符求值两次。（对性能有一点点点点影响）<br>任意复合运算符op等价于<code>a = a op b;</code></li>
+</ul>
+<h2 id="递增递减运算符"><a href="#递增递减运算符" class="headerlink" title="递增递减运算符"></a>递增递减运算符</h2><ul>
+<li>前置版本<code>j = ++i</code>，先加一后赋值</li>
+<li>后置版本<code>j = i++</code>，先赋值后加一</li>
+</ul>
+<p><strong>优先使用前置</strong>版本，后置多一步储存原始值。（除非需要变化前的值）</p>
+<h3 id="混用解引用和递增运算符"><a href="#混用解引用和递增运算符" class="headerlink" title="混用解引用和递增运算符"></a>混用解引用和递增运算符</h3><p><code>*iter++</code>等价于<code>*(iter++)</code>，递增优先级较高</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> iter = vi.<span class="built_in">begin</span>();</span><br><span class="line"><span class="keyword">while</span> (iter!=vi.<span class="built_in">end</span>()&amp;&amp;*iter&gt;=<span class="number">0</span>)</span><br><span class="line">	cout&lt;&lt;*iter++&lt;&lt;endl;	<span class="comment">// 输出当前值，指针向前移1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>简介是一种美德</strong>，追求简洁能降低程序出错可能性</p>
+</blockquote>
+<h2 id="成员访问运算符"><a href="#成员访问运算符" class="headerlink" title="成员访问运算符"></a>成员访问运算符</h2><p><code>ptr-&gt;mem</code>等价于<code>(*ptr).mem</code></p>
+<p>注意<code>.</code>运算符优先级大于<code>*</code>，所以记得加括号</p>
+<h2 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h2><ul>
+<li><p>条件运算符（<code>?:</code>）允许我们把简单的<code>if-else</code>逻辑嵌入到单个表达式中去，按照如下形式：<code>cond? expr1: expr2</code></p>
+</li>
+<li><p>可以嵌套使用，<strong>右结合律</strong>，从右向左顺序组合</p>
+<ul>
+<li><pre><code class="language-c++">finalgrade = (grade &gt; 90) ? &quot;high pass&quot;
+    : (grade &lt; 60) ? &quot;fail&quot; : &quot;pass&quot;;
+//等价于
+finalgrade = (grade &gt; 90) ? &quot;high pass&quot;
+    : （(grade &lt; 60) ? &quot;fail&quot; : &quot;pass&quot;）;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 输出表达式使用条件运算符记得加括号，条件运算符优先级太低。</span><br><span class="line"></span><br><span class="line">## 位运算符</span><br><span class="line"></span><br><span class="line">用于检查和设置二进制位的功能。</span><br><span class="line"></span><br><span class="line">- 位运算符是作用于**整数类型**的运算对象。</span><br><span class="line">- 二进制位向左移（`&lt;&lt;`）或者向右移（`&gt;&gt;`），移出边界外的位就被舍弃掉了。</span><br><span class="line">- 位取反（`~`）（逐位求反）、与（`&amp;`）、或（`|`）、异或（`^`）</span><br><span class="line"></span><br><span class="line">有符号数负值可能移位后变号，所以强烈建议**位运算符仅用于无符号数**。</span><br><span class="line"></span><br><span class="line">应用：</span><br><span class="line"></span><br><span class="line">```c++</span><br><span class="line">unsigned long quiz1 = 0;    // 每一位代表一个学生是否通过考试</span><br><span class="line">1UL &lt;&lt; 12;  // 代表第12个学生通过</span><br><span class="line">quiz1 |= (1UL &lt;&lt; 12);   // 将第12个学生置为已通过</span><br><span class="line">quiz1 &amp;= ~(1UL &lt;&lt; 12);  // 将第12个学生修改为未通过</span><br><span class="line">bool stu12 = quiz1 &amp; (1UL &lt;&lt; 12);   // 判断第12个学生是否通过</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>位运算符使用较少，但是重载cout、cin大家都用过</p>
+</blockquote>
+<p>位运算符满足左结合律，优先级介于中间，使用时尽量加括号。</p>
+<h2 id="sizeof运算符"><a href="#sizeof运算符" class="headerlink" title="sizeof运算符"></a>sizeof运算符</h2><ul>
+<li>返回一条表达式或一个类型名字所占的<strong>字节数</strong>。</li>
+<li>返回的类型是 <code>size_t</code>的常量表达式。</li>
+<li><code>sizeof</code>并不实际计算其运算对象的值。</li>
+<li>两种形式：<ol>
+<li><code>sizeof (type)</code>，给出类型名</li>
+<li><code>sizeof expr</code>，给出表达式</li>
+</ol>
+</li>
+<li>可用sizeof返回数组的大小</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ia[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// sizeof(ia)返回整个数组所占空间的大小</span></span><br><span class="line"><span class="comment">// sizeof(ia)/sizeof(*ia)返回数组的大小</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">size_t</span> sz = <span class="built_in">sizeof</span>(ia)/<span class="built_in">sizeof</span>(*ia);</span><br><span class="line"><span class="type">int</span> arr[sz];</span><br></pre></td></tr></table></figure>
+
+<h2 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a>逗号运算符</h2><p>从左向右依次求值。</p>
+<p>左侧求值结果丢弃，逗号运算符<strong>结果是右侧表达式</strong>的值。</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><blockquote>
+<p>设计为尽可能避免损失精度，即转换为更精细类型。</p>
+</blockquote>
+<ul>
+<li>比 <code>int</code>类型小的整数值先提升为较大的整数类型。</li>
+<li>条件中，非布尔转换成布尔。</li>
+<li>初始化中，初始值转换成变量的类型。</li>
+<li>算术运算或者关系运算的运算对象有多种类型，要转换成同一种类型。</li>
+<li>函数调用时也会有转换。</li>
+</ul>
+<h4 id="算术转换"><a href="#算术转换" class="headerlink" title="算术转换"></a>算术转换</h4><h5 id="整型提升"><a href="#整型提升" class="headerlink" title="整型提升"></a>整型提升</h5><ul>
+<li>常见的char、bool、short能存在int就会转换成int，否则提升为<code>unsigned int</code></li>
+<li><code>wchar_t,char16_t,char32_t</code>提升为整型中<code>int,long,long long ……</code>最小的，且能容纳原类型所有可能值的类型。</li>
+</ul>
+<h4 id="其他转换"><a href="#其他转换" class="headerlink" title="其他转换"></a>其他转换</h4><blockquote>
+<p>p143</p>
+</blockquote>
+<h3 id="显式类型转换（尽量避免）"><a href="#显式类型转换（尽量避免）" class="headerlink" title="显式类型转换（尽量避免）"></a>显式类型转换（尽量避免）</h3><ul>
+<li><p><strong>static_cast</strong>：任何明确定义的类型转换，只要不包含底层const，都可以使用。 <code>double slope = static_cast&lt;double&gt;(j);</code></p>
+</li>
+<li><p><strong>dynamic_cast</strong>：支持运行时类型识别。</p>
+</li>
+<li><p><strong>const_cast</strong>：只能改变运算对象的底层const，一般可用于去除const性质。 <code>const char *pc; char *p = const_cast&lt;char*&gt;(pc)</code></p>
+<blockquote>
+<p>只有其可以改变常量属性</p>
+</blockquote>
+</li>
+<li><p><strong>reinterpret_cast</strong>：通常为运算对象的位模式提供低层次上的重新解释。</p>
+</li>
+</ul>
+<h4 id="旧式强制类型转换"><a href="#旧式强制类型转换" class="headerlink" title="旧式强制类型转换"></a>旧式强制类型转换</h4><p><code>type expr</code></p>
+<h2 id="运算符优先级表"><a href="#运算符优先级表" class="headerlink" title="运算符优先级表"></a>运算符优先级表</h2><blockquote>
+<p>p147</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yingjuhan.github.io/Hexo-Blog/2025/02/02/C-Primer-5th-4/" data-id="cmbc76op3000xkmq477vp80g6" data-title="C++ Primer 5th 4" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          C++ Primer 5th 5
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Hexo-Blog/2025/02/02/C-Primer-5th-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">C++ Primer 5th 3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-Primer-5th/">C++ Primer 5th</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/C-C-%E5%9F%BA%E7%A1%80/">C/C++基础</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/IO/">IO</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/curriculum-vitae/">curriculum vitae</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/opencascade/">opencascade</a></li><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/Hexo-Blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/3d/" rel="tag">3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C/" rel="tag">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" rel="tag">C&#x2F;C++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MSVC/" rel="tag">MSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/MinGW/" rel="tag">MinGW</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/buffer/" rel="tag">buffer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/file-io/" rel="tag">file io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/opencascade/" rel="tag">opencascade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">动态链接库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" rel="tag">静态链接库</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Hexo-Blog/tags/3d/" style="font-size: 10px;">3d</a> <a href="/Hexo-Blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/Hexo-Blog/tags/C-C-%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">C/C++基础</a> <a href="/Hexo-Blog/tags/MSVC/" style="font-size: 10px;">MSVC</a> <a href="/Hexo-Blog/tags/MinGW/" style="font-size: 10px;">MinGW</a> <a href="/Hexo-Blog/tags/buffer/" style="font-size: 10px;">buffer</a> <a href="/Hexo-Blog/tags/file-io/" style="font-size: 10px;">file io</a> <a href="/Hexo-Blog/tags/opencascade/" style="font-size: 10px;">opencascade</a> <a href="/Hexo-Blog/tags/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">动态链接库</a> <a href="/Hexo-Blog/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 10px;">建模</a> <a href="/Hexo-Blog/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/Hexo-Blog/tags/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/" style="font-size: 15px;">静态链接库</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/Hexo-Blog/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/05/30/flatbuffers/">flatbuffers</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/10/MSVC%E4%B8%8EMinGW/">MSVC与MinGW</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/a%E5%92%8Cso%E7%9A%84%E7%AE%80%E4%BB%8B-3-Linux-GNU/">.a和so的简介 (3. Linux GNU)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/DLL-a%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B-2-Windows-MINGW/">DLL.a和DLL的简介 (2. Windows MINGW)</a>
+          </li>
+        
+          <li>
+            <a href="/Hexo-Blog/2025/02/09/LIB%E5%92%8CDLL%E7%9A%84%E7%AE%80%E4%BB%8B/">LIB和DLL的简介 (1. Windows MSVC)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 YingjuHan<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Hexo-Blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Hexo-Blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/Hexo-Blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/Hexo-Blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/Hexo-Blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
