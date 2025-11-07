@@ -5,28 +5,23 @@ categories:
 - curriculum vitae
 ---
 
- <center>
-     <h1>韩英举</h1>
-     <div>
-         <span>
-             hanyingju@live.cn
-         </span>
-         ·
-         <span>
-             <a href="https://github.com/YingjuHan">YingjuHan</a>
-         </span>
-         ·
-         <span>
-             <a href="https://yingjuhan.github.io/Hexo-Blog/">YingjuHan‘s Blog</a>
-         </span>
-     </div>
- </center>
+<!-- 规范 HTML 标签嵌套，确保所有标签闭合顺序正确 -->
+<center>
+    <h1>韩英举</h1>
+    <div>
+        <span>hanyingju@live.cn</span>
+        ·
+        <span><a href="https://github.com/YingjuHan">YingjuHan</a></span>
+        ·
+        <span><a href="https://yingjuhan.github.io/Hexo-Blog/">YingjuHan‘s Blog</a></span>
+    </div>
+</center> <!-- 确保 center 标签与内部 div 标签闭合顺序匹配 -->
 
- ## 个人信息 
+## 个人信息 
 
- - 男
- - 兴趣领域：CAx可视化, 工业软件, OpenCASCADE
- - 工作经验：4 年
+- 男
+- 兴趣领域：CAx可视化, 工业软件, OpenCASCADE
+- 工作经验：4 年
 
 ## 教育经历
 
